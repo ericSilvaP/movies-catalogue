@@ -21,37 +21,30 @@ export class TMBd {
     )}&language=${language}&include_adult=${includeAdult}&page=${page}`
   }
 
-  async getMovie(movieId, appendToResponse = [], language = 'pt-BR') {
-    let url = `${this.baseURL}/movie/${movieId}?language=${language}`
-    if (appendToResponse.length > 0) {
-      url += this.appendToResponseURL(appendToResponse)
-    }
-
+  async fetchJSON(url, errorMessage) {
     try {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
-        throw new Error(`Movie not found error (status: ${response.status})`)
-      const data = await response.json()
-      return data
+        throw new Error(`${errorMessage} (status: ${response.status})`)
+      return await response.json()
     } catch (error) {
+      console.error(`❌ [TMDb Error]: ${error.message}`)
       throw error
     }
+  }
+
+  async getMovie(movieId, appendToResponse = [], language = 'pt-BR') {
+    let url = `${this.baseURL}/movie/${movieId}?language=${language}`
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
+    return this.fetchJSON(url, 'Movie not found')
   }
 
   async getSeries(seriesId, appendToResponse = [], language = 'pt-BR') {
     let url = `${this.baseURL}/tv/${seriesId}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`Series not found error (status: ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'Series not found')
   }
 
   async getSeriesSeason(
@@ -63,16 +56,7 @@ export class TMBd {
     let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`Season not found (status: ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'Season not found')
   }
 
   async getSeriesEpisode(
@@ -85,76 +69,29 @@ export class TMBd {
     let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`Episode not found (status: ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'Episode not found')
   }
 
   async getPerson(personId, appendToResponse = [], language = 'pt-BR') {
     let url = `${this.baseURL}/person/${personId}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`Person not found error (status: ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'Person not found')
   }
 
   async getCompany(companyId) {
-    let url = `${this.baseURL}/company/${companyId}`
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`Company not found error (status: ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    const url = `${this.baseURL}/company/${companyId}`
+    return this.fetchJSON(url, 'Company not found')
   }
 
   async getMovieGenresList(language = 'pt-BR') {
     const url = `${this.baseURL}/genre/movie/list?language=${language}`
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(
-          `Error fetching movie genres (status: ${response.status})`
-        )
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'Error fetching movie genres')
   }
 
   async getSeriesGenresList(language = 'pt-BR') {
     const url = `${this.baseURL}/genre/tv/list?language=${language}`
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(
-          `Error fetching series genres (status: ${response.status})`
-        )
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'Error fetching series genres')
   }
 
   async searchMovie(
@@ -178,20 +115,10 @@ export class TMBd {
     )
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
-    if (primaryReleaseYear !== 0)
-      url += `&primary_release_year=${primaryReleaseYear}`
-    if (year !== 0) url += `&year=${year}`
-    if (region !== '') url += `&region=${region}`
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`No movies found (status ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    if (primaryReleaseYear) url += `&primary_release_year=${primaryReleaseYear}`
+    if (year) url += `&year=${year}`
+    if (region) url += `&region=${region}`
+    return this.fetchJSON(url, 'No movies found')
   }
 
   async searchSeries(
@@ -205,19 +132,9 @@ export class TMBd {
     } = {}
   ) {
     let url = this.defaultSearchURL(query, language, page, includeAdult, 'tv')
-    if (firstAirDateYear !== 0)
-      url += `&first_air_date_year=${firstAirDateYear}`
-    if (year !== 0) url += `&year=${year}`
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`No series found (status ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    if (firstAirDateYear) url += `&first_air_date_year=${firstAirDateYear}`
+    if (year) url += `&year=${year}`
+    return this.fetchJSON(url, 'No series found')
   }
 
   async searchPerson(
@@ -231,16 +148,7 @@ export class TMBd {
       includeAdult,
       'person'
     )
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(`No person found (status ${response.status})`)
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'No person found')
   }
 
   async searchMulti(
@@ -254,17 +162,6 @@ export class TMBd {
       includeAdult,
       'multi'
     )
-
-    try {
-      const response = await fetch(url, this.GETOptions)
-      if (!response.ok)
-        throw new Error(
-          `No series, movie or person found (status ${response.status})`
-        )
-      const data = await response.json()
-      return data
-    } catch (error) {
-      throw error
-    }
+    return this.fetchJSON(url, 'No series, movie or person found')
   }
 }
