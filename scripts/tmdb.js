@@ -62,4 +62,19 @@ export class TMBd {
       throw error
     }
   }
+
+  async getSeriesGenresList(language = 'pt-BR') {
+    const url = `${this.baseURL}/genre/tv/list?language=${language}`
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(
+          `Error fetching series genres (status: ${response.status})`
+        )
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
 }
