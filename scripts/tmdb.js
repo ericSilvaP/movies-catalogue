@@ -37,7 +37,7 @@ export class TMBd {
   }
 
   async getSeries(seriesId, appendToResponse = [], language = 'pt-BR') {
-    const url = `${this.baseURL}/tv/${seriesId}?language=${language}`
+    let url = `${this.baseURL}/tv/${seriesId}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
 
@@ -52,8 +52,28 @@ export class TMBd {
     }
   }
 
+  async getSeriesSeason(
+    seriesId,
+    seasonNumber,
+    appendToResponse = [],
+    language = 'pt-BR'
+  ) {
+    let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}?language=${language}`
+    if (appendToResponse.length > 0) this.appendToResponseURL(appendToResponse)
+
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(`Season not found (status: ${response.status})`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
+
   async getPerson(personId, appendToResponse = [], language = 'pt-BR') {
-    const url = `${this.baseURL}/person/${personId}?language=${language}`
+    let url = `${this.baseURL}/person/${personId}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
 
@@ -69,7 +89,7 @@ export class TMBd {
   }
 
   async getCompany(companieId) {
-    const url = `${this.baseURL}/company/${companieId}`
+    let url = `${this.baseURL}/company/${companieId}`
 
     try {
       const response = await fetch(url, this.GETOptions)
