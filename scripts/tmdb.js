@@ -4,10 +4,14 @@ export class TMBd {
     this.baseURL = 'https://api.themoviedb.org/3'
   }
 
+  appendToResponseURL(extraAttrs) {
+    return ur`&append_to_response=${extraAttrs.join(',')}`
+  }
+
   async getMovie(movieId, appendToResponse = [], language = 'pt-BR') {
     let url = `${this.baseURL}/movie/${movieId}?language=${language}`
     if (appendToResponse.length > 0) {
-      url += `&append_to_response=${appendToResponse.join(',')}`
+      url += this.appendToResponseURL(appendToResponse)
     }
     const options = {
       method: 'GET',
@@ -31,7 +35,7 @@ export class TMBd {
   async getSeries(seriesId, appendToResponse = [], language = 'pt-BR') {
     const url = `${this.baseURL}/tv/${seriesId}?language=${language}`
     if (appendToResponse.length > 0)
-      url += `&append_to_response=${appendToResponse.join(',')}`
+      url += this.appendToResponseURL(appendToResponse)
     const options = {
       method: 'GET',
       headers: {
