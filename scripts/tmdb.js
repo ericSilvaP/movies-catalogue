@@ -68,6 +68,20 @@ export class TMBd {
     }
   }
 
+  async getCompany(companieId) {
+    const url = `${this.baseURL}/company/${companieId}`
+
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(`Company not found error (status: ${response.status})`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
+
   async getMovieGenresList(language = 'pt-BR') {
     const url = `${this.baseURL}/genre/movie/list?language=${language}`
     try {
