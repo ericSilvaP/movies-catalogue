@@ -167,4 +167,21 @@ export class TMBd {
       throw error
     }
   }
+
+  async searchMulti(
+    query,
+    { language = 'pt-BR', includeAdult = false, page = 1 } = {}
+  ) {
+    let url = `${this.baseURL}/search/multi?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(`No person found (status ${response.status})`)
+      const data = response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
 }
