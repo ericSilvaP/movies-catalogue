@@ -86,10 +86,13 @@ export class TMBd {
 
   async getPopular(type, { page = 1, language = 'pt-BR', region = '' } = {}) {
     let url = `${this.baseURL}/${type}/popular?language=${language}&page=${page}`
-
     if (region !== '') url += `&region=${region}`
+    return this.fetchJSON(url, `No popular ${type} found`)
+  }
 
-    return this.fetchJSON(url, 'No popular series, movie or person found')
+  async getTrending(type, timeWindow, page = 1, language = 'pt-BR') {
+    let url = `${this.baseURL}/trending/${type}/${timeWindow}?language=${language}&page=${page}`
+    return this.fetchJSON(url, `No trending ${type} found`)
   }
 
   async getMovieGenresList(language = 'pt-BR') {
