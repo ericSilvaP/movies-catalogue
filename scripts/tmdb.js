@@ -28,7 +28,7 @@ export class TMBd {
     try {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
-        throw new Error(`Falha ao buscar o filme (status: ${response.status})`)
+        throw new Error(`Movie not found error (status: ${response.status})`)
       const data = await response.json()
       return data
     } catch (error) {
@@ -85,7 +85,7 @@ export class TMBd {
     try {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
-        throw new Error(`Season not found (status: ${response.status})`)
+        throw new Error(`Episode not found (status: ${response.status})`)
       const data = await response.json()
       return data
     } catch (error) {
@@ -208,7 +208,7 @@ export class TMBd {
     try {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
-        throw new Error(`No movies found (status ${response.status})`)
+        throw new Error(`No series found (status ${response.status})`)
       const data = response.json()
       return data
     } catch (error) {
@@ -254,7 +254,9 @@ export class TMBd {
     try {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
-        throw new Error(`No person found (status ${response.status})`)
+        throw new Error(
+          `No series, movie or person found (status ${response.status})`
+        )
       const data = response.json()
       return data
     } catch (error) {
