@@ -124,4 +124,30 @@ export class TMBd {
       throw error
     }
   }
+
+  async searchSeries(
+    query,
+    {
+      language = 'pt-BR',
+      includeAdult = false,
+      firstAirDateYear = 0,
+      page = 1,
+      year = 0,
+    } = {}
+  ) {
+    let url = `${this.baseURL}/search/tv?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+    if (firstAirDateYear !== 0)
+      url += `&first_air_date_year=${firstAirDateYear}`
+    if (year !== 0) url += `&year=${year}`
+
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(`No movies found (status ${response.status})`)
+      const data = response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
 }
