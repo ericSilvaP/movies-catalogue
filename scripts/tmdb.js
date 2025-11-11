@@ -16,7 +16,9 @@ export class TMBd {
   }
 
   defaultSearchURL(query, language, page, includeAdult, type) {
-    return `${this.baseURL}/search/${type}?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+    return `${this.baseURL}/search/${type}?query=${encodeURIComponent(
+      query
+    )}&language=${language}&include_adult=${includeAdult}&page=${page}`
   }
 
   async getMovie(movieId, appendToResponse = [], language = 'pt-BR') {
@@ -59,7 +61,8 @@ export class TMBd {
     language = 'pt-BR'
   ) {
     let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}?language=${language}`
-    if (appendToResponse.length > 0) this.appendToResponseURL(appendToResponse)
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
 
     try {
       const response = await fetch(url, this.GETOptions)
@@ -80,7 +83,8 @@ export class TMBd {
     language = 'pt-BR'
   ) {
     let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=${language}`
-    if (appendToResponse.length > 0) this.appendToResponseURL(appendToResponse)
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
 
     try {
       const response = await fetch(url, this.GETOptions)
@@ -109,8 +113,8 @@ export class TMBd {
     }
   }
 
-  async getCompany(companieId) {
-    let url = `${this.baseURL}/company/${companieId}`
+  async getCompany(companyId) {
+    let url = `${this.baseURL}/company/${companyId}`
 
     try {
       const response = await fetch(url, this.GETOptions)
@@ -183,7 +187,7 @@ export class TMBd {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
         throw new Error(`No movies found (status ${response.status})`)
-      const data = response.json()
+      const data = await response.json()
       return data
     } catch (error) {
       throw error
@@ -209,7 +213,7 @@ export class TMBd {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
         throw new Error(`No series found (status ${response.status})`)
-      const data = response.json()
+      const data = await response.json()
       return data
     } catch (error) {
       throw error
@@ -232,7 +236,7 @@ export class TMBd {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
         throw new Error(`No person found (status ${response.status})`)
-      const data = response.json()
+      const data = await response.json()
       return data
     } catch (error) {
       throw error
@@ -257,7 +261,7 @@ export class TMBd {
         throw new Error(
           `No series, movie or person found (status ${response.status})`
         )
-      const data = response.json()
+      const data = await response.json()
       return data
     } catch (error) {
       throw error
