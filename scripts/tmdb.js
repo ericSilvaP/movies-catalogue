@@ -54,4 +54,27 @@ export class TMBd {
       throw error
     }
   }
+
+  async getMovieGenresList(language = 'pt-BR') {
+    const url = `${this.baseURL}/genre/movie/list?language=${language}`
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    }
+
+    try {
+      const response = await fetch(url, options)
+      if (!response.ok)
+        throw new Error(
+          `Error fetching movie genres (status: ${response.status})`
+        )
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
 }
