@@ -15,6 +15,10 @@ export class TMBd {
     return `&append_to_response=${extraAttrs.join(',')}`
   }
 
+  defaultSearchURL(query, language, page, includeAdult, type) {
+    return `${this.baseURL}/search/${type}?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+  }
+
   async getMovie(movieId, appendToResponse = [], language = 'pt-BR') {
     let url = `${this.baseURL}/movie/${movieId}?language=${language}`
     if (appendToResponse.length > 0) {
@@ -106,7 +110,13 @@ export class TMBd {
       year = 0,
     } = {}
   ) {
-    let url = `${this.baseURL}/search/movie?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+    let url = this.defaultSearchURL(
+      query,
+      language,
+      page,
+      includeAdult,
+      'movie'
+    )
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
     if (primaryReleaseYear !== 0)
@@ -135,7 +145,7 @@ export class TMBd {
       year = 0,
     } = {}
   ) {
-    let url = `${this.baseURL}/search/tv?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+    let url = this.defaultSearchURL(query, language, page, includeAdult, 'tv')
     if (firstAirDateYear !== 0)
       url += `&first_air_date_year=${firstAirDateYear}`
     if (year !== 0) url += `&year=${year}`
@@ -155,7 +165,13 @@ export class TMBd {
     query,
     { language = 'pt-BR', includeAdult = false, page = 1 } = {}
   ) {
-    let url = `${this.baseURL}/search/person?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+    let url = this.defaultSearchURL(
+      query,
+      language,
+      page,
+      includeAdult,
+      'person'
+    )
 
     try {
       const response = await fetch(url, this.GETOptions)
@@ -172,7 +188,13 @@ export class TMBd {
     query,
     { language = 'pt-BR', includeAdult = false, page = 1 } = {}
   ) {
-    let url = `${this.baseURL}/search/multi?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+    let url = this.defaultSearchURL(
+      query,
+      language,
+      page,
+      includeAdult,
+      'multi'
+    )
 
     try {
       const response = await fetch(url, this.GETOptions)
