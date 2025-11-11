@@ -84,6 +84,14 @@ export class TMBd {
     return this.fetchJSON(url, 'Company not found')
   }
 
+  async getPopular(type, { page = 1, language = 'pt-BR', region = '' } = {}) {
+    let url = `${this.baseURL}/${type}/popular?language=${language}&page=${page}`
+
+    if (region !== '') url += `&region=${region}`
+
+    return this.fetchJSON(url, 'No popular series, movie or person found')
+  }
+
   async getMovieGenresList(language = 'pt-BR') {
     const url = `${this.baseURL}/genre/movie/list?language=${language}`
     return this.fetchJSON(url, 'Error fetching movie genres')
