@@ -34,7 +34,9 @@ function createMovieCard(movie) {
 
   movieCard.classList.add('movie-container')
   poster.classList.add('poster')
-  poster.appendChild(createImg(imgURL + movie.poster_path))
+  poster.appendChild(
+    createImg('https://image.tmdb.org/t/p/original' + movie.poster_path)
+  )
 
   title.textContent = movie.title
   titleDiv.classList.add('title')
@@ -75,11 +77,35 @@ tmdb
     moviesGrid.appendChild(createMovieCard(movie))
   })
   .catch((err) => {
-    console.log(err)
+    console.error(err)
   })
 
-tmdb.getMovieGenresList().then((genresList) => {
-  genresList.genres.map((genre) => {
-    console.log(genre.name)
+tmdb
+  .getCompany(10220)
+  .then((person) => {
+    console.log(person.name)
   })
+  .catch((err) => {
+    console.error(err)
+  })
+
+const seriesGenres = await tmdb.getSeriesGenresList()
+console.log(seriesGenres.genres.map((genre) => genre.name))
+
+const movies = await tmdb.searchMulti('bill', {
+  page: 10,
+  includeAdult: true,
 })
+console.log(movies.results)
+
+const season = await tmdb.getSeriesSeason(123, 1)
+console.log(season)
+
+const episode = await tmdb.getSeriesEpisode(123, 1, 3)
+console.log(episode)
+
+const popular = await tmdb.getPopular('tv', { page: 3 })
+console.log(popular)
+
+const trending = await tmdb.getTrending('movie', 'day', 3)
+console.log(trending)
