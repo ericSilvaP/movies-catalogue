@@ -17,8 +17,6 @@ export class TMBd {
       },
     }
 
-    console.log(url)
-
     try {
       const response = await fetch(url, options)
       if (!response.ok)

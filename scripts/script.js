@@ -1,8 +1,8 @@
-const API_KEY = '36b3abd4cb8e075f9bfcef97420f970b'
+import { TMBd } from './tmdb.js'
+
 const API_READ_KEY =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNmIzYWJkNGNiOGUwNzVmOWJmY2VmOTc0MjBmOTcwYiIsIm5iZiI6MTc2MjUzODI3NS4wNTUsInN1YiI6IjY5MGUzMzIzMTJjYTQ3NmQ1YWRkMTM0MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nQVRoTRaMxb23ama7ncrz-4yfoLpE-gytcNskMwsD0E'
 const LANGUAGE = 'pt-BR'
-const imgDiv = document.querySelector('.resp > img')
 const url = `https://api.themoviedb.org/3/search/movie?query=Ocean&language=${LANGUAGE}`
 const imgURL = 'https://image.tmdb.org/t/p/original'
 const options = {
@@ -13,6 +13,7 @@ const options = {
   },
 }
 const moviesGrid = document.querySelector('#movies')
+const tmdbClass = new TMBd(API_READ_KEY)
 
 function createImg(src) {
   const imgDiv = document.createElement('img')
@@ -54,11 +55,25 @@ function createMovieCard(movie) {
   return movieCard
 }
 
-fetch(url, options)
+const json = fetch(url, options)
   .then((res) => res.json())
   .then((json) => {
     for (const movie of json.results) {
       moviesGrid.appendChild(createMovieCard(movie))
     }
+    return json
   })
   .catch((err) => console.error(err))
+
+json.then((json) => {
+  console.log(json)
+})
+
+tmdbClass
+  .getMovie(680)
+  .then((movie) => {
+    moviesGrid.appendChild(createMovieCard(movie))
+  })
+  .catch((err) => {
+    console.log(err)
+  })
