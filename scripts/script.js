@@ -77,3 +77,9 @@ tmdb
   .catch((err) => {
     console.log(err)
   })
+
+tmdb.getMovieGenresList().then((genresList) => {
+  genresList.genres.map((genre) => {
+    console.log(genre.name)
+  })
+})
