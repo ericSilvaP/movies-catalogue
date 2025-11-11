@@ -72,6 +72,27 @@ export class TMBd {
     }
   }
 
+  async getSeriesEpisode(
+    seriesId,
+    seasonNumber,
+    episodeNumber,
+    appendToResponse = [],
+    language = 'pt-BR'
+  ) {
+    let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=${language}`
+    if (appendToResponse.length > 0) this.appendToResponseURL(appendToResponse)
+
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(`Season not found (status: ${response.status})`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
+
   async getPerson(personId, appendToResponse = [], language = 'pt-BR') {
     let url = `${this.baseURL}/person/${personId}?language=${language}`
     if (appendToResponse.length > 0)
