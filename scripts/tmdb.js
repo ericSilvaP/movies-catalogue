@@ -12,7 +12,7 @@ export class TMBd {
   }
 
   appendToResponseURL(extraAttrs) {
-    return ur`&append_to_response=${extraAttrs.join(',')}`
+    return `&append_to_response=${extraAttrs.join(',')}`
   }
 
   async getMovie(movieId, appendToResponse = [], language = 'pt-BR') {
@@ -41,6 +41,22 @@ export class TMBd {
       const response = await fetch(url, this.GETOptions)
       if (!response.ok)
         throw new Error(`Series not found error (status: ${response.status})`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async getPerson(personId, appendToResponse = [], language = 'pt-BR') {
+    const url = `${this.baseURL}/person/${personId}?language=${language}`
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
+
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(`Person not found error (status: ${response.status})`)
       const data = await response.json()
       return data
     } catch (error) {
