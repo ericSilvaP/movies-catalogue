@@ -93,4 +93,35 @@ export class TMBd {
       throw error
     }
   }
+
+  async searchMovie(
+    query,
+    {
+      appendToResponse = [],
+      language = 'pt-BR',
+      includeAdult = false,
+      primaryReleaseYear = 0,
+      page = 1,
+      region = '',
+      year = 0,
+    } = {}
+  ) {
+    let url = `${this.baseURL}/search/movie?query=${query}&language=${language}&include_adult=${includeAdult}&page=${page}`
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
+    if (primaryReleaseYear !== 0)
+      url += `&primary_release_year=${primaryReleaseYear}`
+    if (year !== 0) url += `&year=${year}`
+    if (region !== '') url += `&region=${region}`
+
+    try {
+      const response = await fetch(url, this.GETOptions)
+      if (!response.ok)
+        throw new Error(`No movies found (status ${response.status})`)
+      const data = response.json()
+      return data
+    } catch (error) {
+      throw error
+    }
+  }
 }
