@@ -13,7 +13,7 @@ const options = {
   },
 }
 const moviesGrid = document.querySelector('#movies')
-const tmdbClass = new TMBd(API_READ_KEY)
+const tmdb = new TMBd(API_READ_KEY)
 
 function createImg(src) {
   const imgDiv = document.createElement('img')
@@ -69,7 +69,7 @@ json.then((json) => {
   console.log(json)
 })
 
-tmdbClass
+tmdb
   .getMovie(680)
   .then((movie) => {
     moviesGrid.appendChild(createMovieCard(movie))
