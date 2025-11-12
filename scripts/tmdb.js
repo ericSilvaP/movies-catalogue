@@ -176,3 +176,14 @@ export class TMBd {
     return this.fetchJSON(url, 'No series, movie or person found')
   }
 }
+
+export function filterByGenre(list, genreId) {
+  if (!Array.isArray(list)) {
+    console.error('List parameter must be array o be filtered')
+    return []
+  }
+
+  return list.filter(
+    (item) => Array.isArray(item.genre_ids) && item.genre_ids.includes(genreId)
+  )
+}
