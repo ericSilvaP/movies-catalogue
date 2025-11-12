@@ -1,31 +1,46 @@
-#movies {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+:root {
+  --first-color: #0d1b2a;
+  --second-color: #1b263b;
+  --third-color: #415a77;
+  --fourth-color: #ffc300;
+  --base-font: 'Nunito', sans-serif;
+  --gap-standard: 1.5rem;
 }
 
-.movie-container {
-  width: 200px;
+body {
+  background-color: var(--first-color);
+  margin: 0;
+}
+
+.header {
+  width: 100vw;
+  height: 4rem;
   display: flex;
-  flex-flow: column nowrap;
   align-items: center;
-  background-color: rgb(73, 69, 69);
-  color: whitesmoke;
-  padding: 15px;
-  font-size: small;
-}
-
-.poster {
-  max-height: 300px;
-  max-width: 100px;
-}
-
-img {
-  max-width: 100%;
-}
-
-.sub-title {
-  display: flex;
   justify-content: space-between;
-  width: 100%;
+  background-color: var(--second-color);
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.452);
+}
+
+.container-logo {
+  padding-left: var(--gap-standard);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.container-logo .img-logo {
+  width: 2rem;
+  height: auto;
+}
+
+.container-logo p {
+  font-family: var(--base-font);
+  font-weight: bold;
+  color: var(--fourth-color);
+}
+
+.menu-burger {
+  padding-right: var(--gap-standard);
 }
