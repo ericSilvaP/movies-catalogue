@@ -5,6 +5,7 @@
   --fourth-color: #ffc300;
   --base-font: 'Nunito', sans-serif;
   --gap-standard: 1.5rem;
+  --radius-standard: 2px;
 }
 
 body {
@@ -43,4 +44,29 @@ body {
 
 .menu-burger {
   padding-right: var(--gap-standard);
+}
+
+.search-bar {
+  width: 80vw;
+  height: 2rem;
+  margin: 1.5rem;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--second-color);
+  border-radius: var(--radius-standard);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.205);
+}
+
+.description-search {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.description-search p {
+  font-family: var(--base-font);
+  color: var(--fourth-color);
+  font-size: 0.8rem;
 }
