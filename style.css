@@ -28,22 +28,22 @@ main {
   border: none;
   height: 0.5px;
   background-color: white;
-  width: 90vw;
+  width: 90%;
   border-radius: 8px;
 }
 
 .header {
-  width: 100vw;
+  width: calc(100% - 3rem);
   height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: var(--second-color);
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.452);
+  padding: 0 1.5rem;
 }
 
 .container-logo {
-  padding-left: 1.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -61,15 +61,28 @@ main {
   color: var(--fourth-color);
 }
 
+.options {
+  display: none;
+  gap: 1rem;
+}
+
+.options a {
+  color: var(--fourth-color);
+  font-family: var(--base-font);
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+}
+
 .menu-burger {
-  padding-right: 1.5rem;
+  display: block;
 }
 
 .search-bar {
-  width: 80vw;
+  width: 80%;
   height: 2rem;
   margin: 1rem 0 0 0;
-  padding: 0.2rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -91,7 +104,7 @@ main {
 }
 
 .title-section {
-  font-size: 16px;
+  font-size: 1.5rem;
   font-family: var(--base-font);
   color: var(--fourth-color);
   text-align: center;
@@ -102,7 +115,7 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   justify-items: center;
   gap: 1.5rem;
-  width: 90vw;
+  width: 90%;
 }
 
 .card-movie {
@@ -198,4 +211,11 @@ main {
 }
 
 @media (min-width: 768px) {
+  .options {
+    display: flex;
+  }
+
+  .menu-burger {
+    display: none;
+  }
 }
