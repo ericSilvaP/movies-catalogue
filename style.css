@@ -5,17 +5,27 @@
   --fourth-color: #ffc300;
   --base-font: 'Nunito', sans-serif;
   --second-font: 'Nobile', sans-serif;
-  --gap-standard: 1.5rem;
   --radius-standard: 2px;
 }
 
 body {
   background-color: var(--first-color);
+  margin: 0;
+}
+
+main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0;
+}
+
+.line {
+  border: none;
+  height: 0.5px;
+  background-color: white;
+  width: 90vw;
+  border-radius: 8px;
 }
 
 .header {
@@ -29,7 +39,7 @@ body {
 }
 
 .container-logo {
-  padding-left: var(--gap-standard);
+  padding-left: 1.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -48,13 +58,13 @@ body {
 }
 
 .menu-burger {
-  padding-right: var(--gap-standard);
+  padding-right: 1.5rem;
 }
 
 .search-bar {
   width: 80vw;
   height: 2rem;
-  margin: 1.2rem 0;
+  margin: 1rem 0 0 0;
   padding: 0.2rem;
   display: flex;
   align-items: center;
@@ -86,7 +96,7 @@ body {
 .movie-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--gap-standard);
+  gap: 1.5rem;
 }
 
 .card-movie {
@@ -161,4 +171,22 @@ body {
   padding: 0 0.2rem;
   display: flex;
   gap: 0.4rem;
+}
+
+.footer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer .container-logo {
+  padding: 0;
+}
+
+.footer p {
+  font-family: var(--base-font);
+  color: white;
+  font-size: 0.5rem;
 }
