@@ -5,31 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>CatMovie</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nobile:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
   </head>
   <body>
-    <h1>Filmes</h1>
-    <div id="movies">
-      <div class="movie-container">
-        <div class="poster">
-          <img
-            src="https://image.tmdb.org/t/p/original//14Wj4HZOdPmN2DXNbXXvJH2DwIf.jpg"
-            alt=""
-          />
-        </div>
-        <div class="title">
-          <h2>Título</h2>
-        </div>
-        <div class="sub-title">
-          <div class="time">1:30h</div>
-          <div class="rating">5 stars</div>
-        </div>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
-          illum illo minima sint quis modi, saepe ipsum! Quae deserunt quaerat
-          fugit, dolores hic dolore libero atque, minima nesciunt voluptatum ab.
-        </p>
+    <header class="header">
+      <div class="container-logo">
+        <img
+          class="img-logo"
+          src="./assets/images/logo-first.png"
+          alt="logo CatMovies"
+        />
+        <p>Cat Movies</p>
       </div>
-    </div>
+      <i class="menu-burger fa-solid fa-bars"></i>
+      <div class="options">
+        <p><a href="#">Início</a></p>
+        <p><a href="#">Filmes</a></p>
+        <p><a href="#">Séries</a></p>
+      </div>
+    </header>
+
+    <main>
+      <div class="search-bar">
+        <div class="description-search">
+          <p><i class="fa-solid fa-magnifying-glass"></i> Digite aqui...</p>
+        </div>
+        <i class="fa-solid fa-filter"></i>
+      </div>
+
+      <h1 class="title-section">Lançamentos</h1>
+
+      <section class="movie-cards">
+        <div class="card-movie">
+          <img
+            class="img-movie"
+            id="img-movie"
+            src="./assets/images/img-movie.jpg"
+            alt="poster-filme"
+          />
+          <h2 class="title-movie" id="title-movie">Hereditário</h2>
+          <div class="info-movie">
+            <div class="rating-info">
+              <p><i class="fa-solid fa-star"></i></p>
+              <p class="rating" id="rating">
+                <span id="rating-number">7.7</span>/10
+              </p>
+            </div>
+            <p class="data-movie" id="data-movie">12/12/2022</p>
+          </div>
+          <div class="genres-movie">
+            <div class="genre" id="genre">
+              <p>Terror</p>
+            </div>
+            <div class="genre" id="genre">
+              <p>Drama</p>
+            </div>
+            <div class="genre" id="genre">
+              <p>Suspense</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <hr class="line" />
+      <div class="container-logo">
+        <img
+          class="img-logo"
+          src="./assets/images/logo-first.png"
+          alt="logo CatMovies"
+        />
+        <p>Cat Movies</p>
+      </div>
+      <p>
+        Universide Estadual do Piauí © 2025 - Desenvolvido por: Kauã, Wilk,
+        Eric, Enzo
+      </p>
+    </footer>
     <script type="module" src="scripts/script.js"></script>
   </body>
 </html>
