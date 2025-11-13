@@ -196,3 +196,6 @@ main {
   color: white;
   font-size: 0.5rem;
 }
+
+@media (min-width: 768px) {
+}
