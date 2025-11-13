@@ -1,7 +1,7 @@
 import { createMovieCard } from './elementsFactory.js'
 import { filterByGenre, TMBd } from './tmdb.js'
 
-const API_READ_KEY =
+export const API_READ_KEY =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNmIzYWJkNGNiOGUwNzVmOWJmY2VmOTc0MjBmOTcwYiIsIm5iZiI6MTc2MjUzODI3NS4wNTUsInN1YiI6IjY5MGUzMzIzMTJjYTQ3NmQ1YWRkMTM0MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nQVRoTRaMxb23ama7ncrz-4yfoLpE-gytcNskMwsD0E'
 const LANGUAGE = 'pt-BR'
 const url = `https://api.themoviedb.org/3/search/movie?query=Ocean&language=${LANGUAGE}`
@@ -16,19 +16,11 @@ const options = {
 const moviesGrid = document.querySelector('#movies')
 const tmdb = new TMBd(API_READ_KEY)
 
-const json = fetch(url, options)
-  .then((res) => res.json())
-  .then((json) => {
-    for (const movie of json.results) {
-      moviesGrid.appendChild(createMovieCard(movie))
-    }
-    return json
-  })
-  .catch((err) => console.error(err))
-
-json.then((json) => {
-  console.log(json)
+const querymovies = await tmdb.searchMovie('ocean', {
+  primaryReleaseYear: 2000,
 })
+// for (const movie of querymovies.results)
+//   moviesGrid.appendChild(createMovieCard(movie))
 
 tmdb
   .getMovie(680)
@@ -49,24 +41,24 @@ tmdb
 //   })
 
 const seriesGenres = await tmdb.getSeriesGenresList()
-console.log(seriesGenres.genres.map((genre) => genre.name))
+// console.log(seriesGenres.genres.map((genre) => genre.name))
 
 const movies = await tmdb.searchMovie('ocean', {
   page: 10,
   includeAdult: true,
 })
-console.log(movies.results)
+// console.log(movies.results)
 
-console.log(filterByGenre(movies.results, 35))
+console.log(filterByGenre(movies.results, 1))
 
 const season = await tmdb.getSeriesSeason(123, 1)
-console.log(season)
+// console.log(season)
 
 const episode = await tmdb.getSeriesEpisode(123, 1, 3)
-console.log(episode)
+// console.log(episode)
 
 const popular = await tmdb.getPopular('tv', { page: 3 })
-console.log(popular)
+// console.log(popular)
 
 const trending = await tmdb.getTrending('movie', 'day', 3)
-console.log(trending)
+// console.log(trending)
