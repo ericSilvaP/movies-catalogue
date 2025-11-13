@@ -74,8 +74,21 @@ main {
   text-decoration: none;
 }
 
+.options a:hover {
+  color: white;
+  transition: 0.5s;
+}
+
 .menu-burger {
+  font-size: 1.5rem;
   display: block;
+  color: var(--fourth-color);
+  cursor: pointer;
+}
+
+.menu-burger:hover {
+  color: white;
+  transition: white 0.5s;
 }
 
 .search-bar {
@@ -89,6 +102,13 @@ main {
   background-color: var(--second-color);
   border-radius: var(--radius-standard);
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.205);
+  color: var(--fourth-color);
+  cursor: pointer;
+}
+
+.search-bar:hover {
+  background-color: #415a7754;
+  transition: 1s;
 }
 
 .description-search {
@@ -101,6 +121,21 @@ main {
   font-family: var(--base-font);
   color: var(--fourth-color);
   font-size: 0.8rem;
+}
+
+.description-search p:hover {
+  color: white;
+  transition: white 0.5s;
+}
+
+.search-bar i {
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.search-bar i:hover {
+  color: white;
+  transition: white 0.5s;
 }
 
 .title-section {
@@ -127,6 +162,12 @@ main {
   gap: 0.3rem;
   border-radius: 4px;
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.452);
+  cursor: pointer;
+}
+
+.card-movie:hover {
+  transform: scale(1.04);
+  transition: 0.4s;
 }
 
 .card-movie .img-movie {
@@ -147,6 +188,7 @@ main {
 
 .info-movie {
   display: flex;
+
   align-items: center;
   justify-content: space-between;
   padding: 0 0.5rem;
@@ -161,7 +203,8 @@ main {
 
 .rating-info {
   display: flex;
-  align-items: center;
+  gap: 0.2rem;
+  color: var(--fourth-color);
 }
 
 .rating-info p {
@@ -216,6 +259,6 @@ main {
   }
 
   .menu-burger {
-    display: none;
+    visibility: hidden;
   }
 }
