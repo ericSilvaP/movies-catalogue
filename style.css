@@ -8,15 +8,19 @@
   --radius-standard: 2px;
 }
 
+html,
 body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: var(--first-color);
   margin: 0;
 }
 
 main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -95,12 +99,14 @@ main {
 
 .movie-cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  justify-items: center;
   gap: 1.5rem;
+  width: 90vw;
 }
 
 .card-movie {
-  width: 10rem;
+  width: 12rem;
   height: 16.5rem;
   background-color: var(--second-color);
   display: flex;
@@ -170,7 +176,7 @@ main {
 .genres-movie {
   padding: 0 0.2rem;
   display: flex;
-  gap: 0.4rem;
+  justify-content: space-around;
 }
 
 .footer {
