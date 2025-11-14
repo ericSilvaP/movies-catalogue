@@ -50,7 +50,8 @@ main {
   justify-content: space-between;
   background-color: var(--second-color);
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.452);
-  padding: 0 1.5rem;
+  padding: 1rem 1.5rem;
+  margin: 0 auto;
 }
 
 .container-logo {
@@ -103,9 +104,8 @@ main {
 
 .search-bar {
   width: 80%;
-  height: 2rem;
+  height: fit-content;
   margin: 1rem 0 0 0;
-  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -118,29 +118,11 @@ main {
 
 .search-bar:hover {
   background-color: #415a7754;
-  transition: 1s;
-}
-
-.description-search {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.description-search p {
-  font-family: var(--base-font);
-  color: var(--fourth-color);
-  font-size: 0.8rem;
-}
-
-.description-search p:hover {
-  color: white;
-  transition: white 0.5s;
+  transition: all 300ms;
 }
 
 .search-bar i {
-  font-size: 0.8rem;
-  cursor: pointer;
+  font-size: 1.1rem;
 }
 
 .search-bar i:hover {
@@ -148,11 +130,62 @@ main {
   transition: white 0.5s;
 }
 
+.search-bar-form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  height: fit-content;
+}
+
+.search-bar-form button {
+  color: var(--fourth-color);
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 1rem 1.7rem;
+  cursor: pointer;
+}
+
+.search-bar-form i {
+  margin: auto 0;
+}
+
+.search-bar-form button:hover {
+  color: white;
+  transition: white 0.5s;
+}
+
+.search-bar-form button i {
+  font-size: 1.4rem;
+}
+
+.filter-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.filter-container i {
+  padding: 0 2rem;
+}
+
+.search-bar-form input {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  width: 100%;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.search-bar-form input:focus {
+  outline: 1px solid var(--fourth-color);
+}
+
 .title-section {
   font-size: 1.5rem;
   font-family: var(--base-font);
   color: var(--fourth-color);
   text-align: center;
+  margin: 2rem 0 1.5rem;
 }
 
 .movie-cards {
@@ -262,7 +295,7 @@ main {
 .footer p {
   font-family: var(--base-font);
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .footer-content {
@@ -272,6 +305,12 @@ main {
 }
 
 @media (min-width: 768px) {
+  .header {
+    width: 100%;
+    font-size: 1.3rem;
+    padding: 2.5rem;
+  }
+
   .options {
     display: flex;
   }

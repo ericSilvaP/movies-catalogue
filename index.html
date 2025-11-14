@@ -24,9 +24,9 @@
   </head>
   <body>
     <header class="header">
-      <div class="container-logo">
+      <div class="header-container-logo container-logo">
         <img
-          class="img-logo"
+          class="header-img-logo"
           src="./assets/images/logo-first.png"
           alt="logo CatMovies"
         />
@@ -42,10 +42,15 @@
 
     <main>
       <div class="search-bar">
-        <div class="description-search">
-          <p><i class="fa-solid fa-magnifying-glass"></i> Digite aqui...</p>
+        <form class="search-bar-form">
+          <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <input type="search" name="query" required />
+        </form>
+        <div class="filter-container">
+          <i class="fa-solid fa-filter"></i>
         </div>
-        <i class="fa-solid fa-filter"></i>
       </div>
 
       <h1 class="title-section">Lançamentos</h1>
