@@ -5,37 +5,69 @@ function createImg(src) {
   return imgDiv
 }
 
+function $(tagName) {
+  return document.createElement(tagName)
+}
+
 export function createMovieCard(movie) {
-  const movieCard = document.createElement('div')
-  const poster = document.createElement('div')
-  const titleDiv = document.createElement('div')
-  const subTitleDiv = document.createElement('div')
-  const releaseDateDiv = document.createElement('div')
-  const ratingDiv = document.createElement('div')
-  const title = document.createElement('h2')
-  const description = document.createElement('p')
+  const card = $('div')
+  card.classList.add('card-movie')
 
-  movieCard.classList.add('movie-container')
-  poster.classList.add('poster')
-  poster.appendChild(
-    createImg('https://image.tmdb.org/t/p/original' + movie.poster_path)
+  // === POSTER ===
+  const img = createImg(
+    'https://image.tmdb.org/t/p/original' + movie.poster_path
   )
+  img.classList.add('img-movie')
+  img.id = 'img-movie'
+  img.alt = movie.title
 
+  // === TÍTULO ===
+  const title = $('h2')
+  title.classList.add('title-movie')
+  title.id = 'title-movie'
   title.textContent = movie.title
-  titleDiv.classList.add('title')
-  titleDiv.appendChild(title)
 
-  subTitleDiv.classList.add('sub-title')
-  releaseDateDiv.classList.add('release-date')
-  ratingDiv.classList.add('rating')
-  releaseDateDiv.textContent = movie.release_date
-  ratingDiv.textContent = movie.vote_average
-  subTitleDiv.append(releaseDateDiv, ratingDiv)
+  // === INFO DO FILME (rating + data) ===
+  const info = $('div')
+  info.classList.add('info-movie')
 
-  description.textContent = movie.overview
-    ? movie.overview
-    : 'Sinopse não disponível'
+  const ratingInfo = $('div')
+  ratingInfo.classList.add('rating-info')
 
-  movieCard.append(poster, titleDiv, subTitleDiv, description)
-  return movieCard
+  const star = $('p')
+  star.innerHTML = `<i class="fa-solid fa-star"></i>`
+
+  const ratingP = $('p')
+  ratingP.classList.add('rating')
+  ratingP.id = 'rating'
+  ratingP.innerHTML = `<span id="rating-number">${movie.vote_average}</span>/10`
+
+  ratingInfo.append(star, ratingP)
+
+  const dateP = $('p')
+  dateP.classList.add('data-movie')
+  dateP.id = 'data-movie'
+  dateP.textContent = movie.release_date
+
+  info.append(ratingInfo, dateP)
+
+  // === GÊNEROS ===
+  const genresDiv = $('div')
+  genresDiv.classList.add('genres-movie')
+
+  movie.genres?.forEach((g) => {
+    const genreDiv = $('div')
+    genreDiv.classList.add('genre')
+
+    const p = $('p')
+    p.textContent = g.name
+
+    genreDiv.appendChild(p)
+    genresDiv.appendChild(genreDiv)
+  })
+
+  // === MONTAGEM FINAL ===
+  card.append(img, title, info, genresDiv)
+
+  return card
 }

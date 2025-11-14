@@ -1,26 +1,10 @@
 import { createMovieCard } from './elementsFactory.js'
-import { filterByGenre, TMBd } from './tmdb.js'
+import { filterByGenre, TMDb } from './tmdb.js'
 
 export const API_READ_KEY =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzNmIzYWJkNGNiOGUwNzVmOWJmY2VmOTc0MjBmOTcwYiIsIm5iZiI6MTc2MjUzODI3NS4wNTUsInN1YiI6IjY5MGUzMzIzMTJjYTQ3NmQ1YWRkMTM0MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nQVRoTRaMxb23ama7ncrz-4yfoLpE-gytcNskMwsD0E'
-const LANGUAGE = 'pt-BR'
-const url = `https://api.themoviedb.org/3/search/movie?query=Ocean&language=${LANGUAGE}`
-const imgURL = 'https://image.tmdb.org/t/p/original'
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${API_READ_KEY}`,
-  },
-}
-const moviesGrid = document.querySelector('#movies')
-const tmdb = new TMBd(API_READ_KEY)
-
-const querymovies = await tmdb.searchMovie('ocean', {
-  primaryReleaseYear: 2000,
-})
-// for (const movie of querymovies.results)
-//   moviesGrid.appendChild(createMovieCard(movie))
+const moviesGrid = document.querySelector('.movie-cards')
+const tmdb = new TMDb(API_READ_KEY)
 
 tmdb
   .getMovie(680)

@@ -1,4 +1,4 @@
-export class TMBd {
+export class TMDb {
   constructor(apiKey) {
     this.apiKey = apiKey
     this.baseURL = 'https://api.themoviedb.org/3'

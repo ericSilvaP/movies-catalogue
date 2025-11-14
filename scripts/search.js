@@ -1,10 +1,10 @@
 import { createMovieCard } from './elementsFactory.js'
 import { API_READ_KEY } from './script.js'
-import { TMBd } from './tmdb.js'
+import { TMDb } from './tmdb.js'
 
 const params = new URLSearchParams(window.location.search)
 const moviesGrid = document.querySelector('#movies')
-const tmdb = new TMBd(API_READ_KEY)
+const tmdb = new TMDb(API_READ_KEY)
 let searchParam = params.get('query')
 
 if (searchParam && searchParam.trim() !== '') {
