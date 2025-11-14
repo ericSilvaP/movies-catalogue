@@ -66,8 +66,13 @@ export function createMovieCard(movie) {
     genresDiv.appendChild(genreDiv)
   })
 
+  // === CONTAINER COM INFORMAÇÕES
+  const contentDiv = $('div')
+  contentDiv.classList.add('movie-content')
+  contentDiv.append(title, info, genresDiv)
+
   // === MONTAGEM FINAL ===
-  card.append(img, title, info, genresDiv)
+  card.append(img, contentDiv)
 
   return card
 }

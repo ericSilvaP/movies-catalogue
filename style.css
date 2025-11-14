@@ -209,6 +209,7 @@ main {
   border-radius: 4px;
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.452);
   cursor: pointer;
+  padding-bottom: 0.8rem;
 }
 
 .card-movie:hover {
