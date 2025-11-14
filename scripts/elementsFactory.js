@@ -13,10 +13,14 @@ export function createMovieCard(movie) {
   const card = $('div')
   card.classList.add('card-movie')
 
+  let src = ''
   // === POSTER ===
-  const img = createImg(
-    'https://image.tmdb.org/t/p/original' + movie.poster_path
-  )
+  if (movie.poster_path) {
+    src = 'https://image.tmdb.org/t/p/original' + movie.poster_path
+  } else {
+    src = 'assets/images/not-found-img.png'
+  }
+  const img = createImg(src)
   img.classList.add('img-movie')
   img.id = 'img-movie'
   img.alt = movie.title
@@ -40,8 +44,9 @@ export function createMovieCard(movie) {
   const ratingP = $('p')
   ratingP.classList.add('rating')
   ratingP.id = 'rating'
-  ratingP.innerHTML = `<span id="rating-number">${movie.vote_average}</span>/10`
-
+  ratingP.innerHTML = `<span id="rating-number">${movie.vote_average.toFixed(
+    2
+  )}</span>/10`
   ratingInfo.append(star, ratingP)
 
   const dateP = $('p')
