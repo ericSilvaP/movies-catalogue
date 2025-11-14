@@ -15,6 +15,15 @@ tmdb
     console.error(err)
   })
 
+tmdb
+  .getMovie(700)
+  .then((movie) => {
+    moviesGrid.appendChild(createMovieCard(movie))
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+
 // tmdb
 //   .getCompany(10220)
 //   .then((person) => {
