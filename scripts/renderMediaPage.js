@@ -1,3 +1,5 @@
+import { createPagination } from '/scripts/pagination.js'
+
 export async function renderMediaPage({
   tmdb,
   cardCreator,
@@ -6,7 +8,8 @@ export async function renderMediaPage({
   genresFunction,
   emptyMessage,
   grid,
-  type = 'multi', // movie | tv | multi
+  paginationDiv,
+  type = 'multi',
 }) {
   const params = new URLSearchParams(window.location.search)
   const title = document.querySelector('.title-section')
@@ -15,52 +18,47 @@ export async function renderMediaPage({
   const genresData = await genresFunction()
   const genres = genresData.genres
 
-  if (!searchParam) {
-    const data = await discoverFunction(discoverOptions)
-    data.results.forEach((item) =>
-      grid.appendChild(cardCreator(item, { genres }))
-    )
-    return
-  }
-
-  searchParam = searchParam.trim()
-
-  if (searchParam === '') {
-    grid.textContent =
-      'Pesquise no CatMovie uma palavra ou frase na caixa acima'
-    return
-  }
-
-  title.textContent = `Pesquisa por "${searchParam}"`
-
-  try {
-    let resultsData
-
-    if (type === 'movie') {
-      resultsData = await tmdb.searchMovie(searchParam)
-    } else if (type === 'tv') {
-      resultsData = await tmdb.searchTV(searchParam)
-    } else {
-      resultsData = await tmdb.searchMulti(searchParam)
+  async function fetchPage(page = 1) {
+    if (!searchParam) {
+      return await discoverFunction({ ...discoverOptions, page })
     }
 
-    const results = resultsData.results
+    searchParam = searchParam.trim()
 
-    if (!results.length) {
+    if (searchParam === '') {
+      grid.textContent =
+        'Pesquise no CatMovie uma palavra ou frase na caixa acima'
+      return { results: [], total_pages: 1 }
+    }
+
+    title.textContent = `Pesquisa por "${searchParam}"`
+
+    let data
+    if (type === 'movie') data = await tmdb.searchMovie(searchParam, page)
+    else if (type === 'tv') data = await tmdb.searchTV(searchParam, page)
+    else data = await tmdb.searchMulti(searchParam, page)
+
+    // multi → filtrar
+    if (type === 'multi') {
+      data.results = data.results.filter(
+        (i) => i.media_type === 'movie' || i.media_type === 'tv'
+      )
+    }
+
+    if (!data.results.length) {
       grid.textContent = emptyMessage
-      return
     }
 
-    results.forEach((item) => {
-      if (type === 'multi') {
-        if (item.media_type === 'movie' || item.media_type === 'tv') {
-          grid.appendChild(cardCreator(item, { genres }))
-        }
-      } else {
-        grid.appendChild(cardCreator(item, { genres }))
-      }
-    })
-  } catch (err) {
-    grid.textContent = 'Erro ao buscar. Tente novamente.'
+    return data
   }
+
+  const pagination = createPagination({
+    paginationDiv,
+    grid,
+    fetchPage,
+    cardCreator,
+    genres,
+  })
+
+  pagination.load(1)
 }
