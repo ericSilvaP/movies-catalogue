@@ -9,7 +9,7 @@ function $(tagName) {
   return document.createElement(tagName)
 }
 
-export function createMovieCard(movie) {
+export function createMovieCard(movie, { genres = [] } = {}) {
   const card = $('div')
   card.classList.add('card-movie')
 
@@ -29,7 +29,7 @@ export function createMovieCard(movie) {
   const title = $('h2')
   title.classList.add('title-movie')
   title.id = 'title-movie'
-  title.textContent = movie.title
+  title.textContent = movie.title ? movie.title : '---'
 
   // === INFO DO FILME (rating + data) ===
   const info = $('div')
@@ -44,15 +44,15 @@ export function createMovieCard(movie) {
   const ratingP = $('p')
   ratingP.classList.add('rating')
   ratingP.id = 'rating'
-  ratingP.innerHTML = `<span id="rating-number">${movie.vote_average.toFixed(
-    2
-  )}</span>/10`
+  ratingP.innerHTML = `<span id="rating-number">${
+    movie.vote_average ? movie.vote_average.toFixed(2) : '---'
+  }</span>/10`
   ratingInfo.append(star, ratingP)
 
   const dateP = $('p')
   dateP.classList.add('data-movie')
   dateP.id = 'data-movie'
-  dateP.textContent = movie.release_date
+  dateP.textContent = movie.release_date ? movie.release_date : '---'
 
   info.append(ratingInfo, dateP)
 
@@ -60,7 +60,11 @@ export function createMovieCard(movie) {
   const genresDiv = $('div')
   genresDiv.classList.add('genres-movie')
 
-  movie.genres?.forEach((g) => {
+  genres = movie.genres
+    ? movie.genres
+    : genres.filter((g) => movie.genre_ids.includes(g.id))
+
+  genres.forEach((g) => {
     const genreDiv = $('div')
     genreDiv.classList.add('genre')
 
