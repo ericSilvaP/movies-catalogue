@@ -40,33 +40,33 @@ export class TMDb {
     return this.fetchJSON(url, 'Movie not found')
   }
 
-  async getSeries(seriesId, appendToResponse = [], language = 'pt-BR') {
-    let url = `${this.baseURL}/tv/${seriesId}?language=${language}`
+  async getTV(TVId, appendToResponse = [], language = 'pt-BR') {
+    let url = `${this.baseURL}/tv/${TVId}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
     return this.fetchJSON(url, 'Series not found')
   }
 
-  async getSeriesSeason(
-    seriesId,
+  async getTVSeason(
+    TVId,
     seasonNumber,
     appendToResponse = [],
     language = 'pt-BR'
   ) {
-    let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}?language=${language}`
+    let url = `${this.baseURL}/tv/${TVId}/season/${seasonNumber}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
     return this.fetchJSON(url, 'Season not found')
   }
 
-  async getSeriesEpisode(
-    seriesId,
+  async getTVEpisode(
+    TVId,
     seasonNumber,
     episodeNumber,
     appendToResponse = [],
     language = 'pt-BR'
   ) {
-    let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=${language}`
+    let url = `${this.baseURL}/tv/${TVId}/season/${seasonNumber}/episode/${episodeNumber}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
     return this.fetchJSON(url, 'Episode not found')
@@ -100,7 +100,7 @@ export class TMDb {
     return this.fetchJSON(url, 'Error fetching movie genres')
   }
 
-  async getSeriesGenresList(language = 'pt-BR') {
+  async getTVGenresList(language = 'pt-BR') {
     const url = `${this.baseURL}/genre/tv/list?language=${language}`
     return this.fetchJSON(url, 'Error fetching series genres')
   }
@@ -132,7 +132,7 @@ export class TMDb {
     return this.fetchJSON(url, 'No movies found')
   }
 
-  async searchSeries(
+  async searchTV(
     query,
     {
       language = 'pt-BR',
