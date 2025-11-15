@@ -3,11 +3,12 @@ import { API_READ_KEY } from './script.js'
 import { TMDb } from './tmdb.js'
 
 const params = new URLSearchParams(window.location.search)
-const moviesGrid = document.querySelector('#movies')
+const moviesGrid = document.querySelector('.movie-cards')
 const tmdb = new TMDb(API_READ_KEY)
 let searchParam = params.get('query')
+const moviesGenres = await tmdb.getMovieGenresList()
 
-if (searchParam && searchParam.trim() !== '') {
+if (searchParam.trim() !== '') {
   searchParam = searchParam.trim()
 
   try {
@@ -17,7 +18,9 @@ if (searchParam && searchParam.trim() !== '') {
       moviesGrid.textContent = 'Nenhum filme encontrado.'
     } else {
       for (const movie of movies.results) {
-        moviesGrid.appendChild(createMovieCard(movie))
+        moviesGrid.appendChild(
+          createMovieCard(movie, { genres: moviesGenres.genres })
+        )
       }
     }
   } catch (e) {
