@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>CatMovie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nobile:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container-logo container-logo">
+        <img
+          class="header-img-logo"
+          src="/assets/images/logo-first.png"
+          alt="logo CatMovies"
+        />
+        <p>Cat Movies</p>
+      </div>
+      <i class="menu-burger fa-solid fa-bars"></i>
+      <div class="options">
+        <p><a href="#">Início</a></p>
+        <p><a href="#">Filmes</a></p>
+        <p><a href="#">Séries</a></p>
+      </div>
+    </header>
+
+    <main>
+      <div class="search-bar">
+        <form class="search-bar-form">
+          <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <input type="search" name="query" required />
+        </form>
+        <div class="filter-container">
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      </div>
+
+      <h1 class="title-section">Lançamentos</h1>
+
+      <section class="media-cards">
+        <!-- <div class="card-media">
+          <img
+            class="img-media"
+            id="img-media"
+            src="./assets/images/img-media.jpg"
+            alt="poster-filme"
+          />
+          <div class="media-content">
+            <h2 class="title-media" id="title-media">Hereditário</h2>
+            <div class="info-media">
+              <div class="rating-info">
+                <p><i class="fa-solid fa-star"></i></p>
+                <p class="rating" id="rating">
+                  <span id="rating-number">7.7</span>/10
+                </p>
+              </div>
+              <p class="media-date" id="media-date">12/12/2022</p>
+            </div>
+            <div class="genres-media">
+              <div class="genre" id="genre">
+                <p>Terror</p>
+              </div>
+              <div class="genre" id="genre">
+                <p>Drama</p>
+              </div>
+              <div class="genre" id="genre">
+                <p>Suspense</p>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </section>
+    </main>
+
+    <footer class="footer">
+      <hr class="line" />
+      <div class="footer-content">
+        <div class="container-logo">
+          <img
+            class="img-logo"
+            src="/assets/images/logo-first.png"
+            alt="logo CatMovies"
+          />
+          <p>Cat Movies</p>
+        </div>
+        <p>
+          Universide Estadual do Piauí © 2025 - Desenvolvido por: Kauã, Wilk,
+          Eric, Enzo
+        </p>
+      </div>
+    </footer>
+    <script type="module" src="/scripts/discoverTV.js"></script>
+  </body>
+</html>
