@@ -6,6 +6,7 @@ import { TMDb } from './tmdb.js'
 const tmdb = new TMDb(API_READ_KEY)
 const currentYear = new Date().getFullYear()
 const mediaGrid = document.querySelector('.media-cards')
+const paginationDiv = document.querySelector('#pagination')
 
 renderMediaPage({
   tmdb,
@@ -16,4 +17,5 @@ renderMediaPage({
   genresFunction: tmdb.getTVGenresList.bind(tmdb),
   grid: mediaGrid,
   emptyMessage: 'Nenhuma série encontrada.',
+  paginationDiv: paginationDiv,
 })
