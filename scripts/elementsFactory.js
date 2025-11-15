@@ -1,37 +1,46 @@
 function createImg(src) {
-  const imgDiv = document.createElement('img')
-  imgDiv.src = src
-
-  return imgDiv
+  const img = document.createElement('img')
+  img.src = src
+  return img
 }
 
 function $(tagName) {
   return document.createElement(tagName)
 }
 
-export function createMovieCard(movie, { genres = [] } = {}) {
+function getPoster(src) {
+  return src
+    ? 'https://image.tmdb.org/t/p/original' + src
+    : '/assets/images/not-found-img.png'
+}
+
+function resolveGenres(media, genres) {
+  return media.genres
+    ? media.genres
+    : genres.filter((g) => media.genre_ids?.includes(g.id))
+}
+
+function createMediaCard(
+  media,
+  { titleKey = 'title', dateKey = 'release_date', genres = [] } = {}
+) {
+  // === CARD ===
   const card = $('div')
   card.classList.add('card-media')
 
-  let src = ''
   // === POSTER ===
-  if (movie.poster_path) {
-    src = 'https://image.tmdb.org/t/p/original' + movie.poster_path
-  } else {
-    src = '/assets/images/not-found-img.png'
-  }
-  const img = createImg(src)
+  const img = createImg(getPoster(media.poster_path))
   img.classList.add('img-media')
   img.id = 'img-media'
-  img.alt = movie.title
+  img.alt = media[titleKey]
 
   // === TÍTULO ===
   const title = $('h2')
   title.classList.add('title-media')
   title.id = 'title-media'
-  title.textContent = movie.title ? movie.title : '---'
+  title.textContent = media[titleKey] || '---'
 
-  // === INFO DO FILME (rating + data) ===
+  // === INFO (rating + data) ===
   const info = $('div')
   info.classList.add('info-media')
 
@@ -45,14 +54,15 @@ export function createMovieCard(movie, { genres = [] } = {}) {
   ratingP.classList.add('rating')
   ratingP.id = 'rating'
   ratingP.innerHTML = `<span id="rating-number">${
-    movie.vote_average ? movie.vote_average.toFixed(2) : '---'
+    media.vote_average ? media.vote_average.toFixed(2) : '---'
   }</span>/10`
+
   ratingInfo.append(star, ratingP)
 
   const dateP = $('p')
   dateP.classList.add('data-media')
   dateP.id = 'data-media'
-  dateP.textContent = movie.release_date ? movie.release_date : '---'
+  dateP.textContent = media[dateKey] || '---'
 
   info.append(ratingInfo, dateP)
 
@@ -60,105 +70,41 @@ export function createMovieCard(movie, { genres = [] } = {}) {
   const genresDiv = $('div')
   genresDiv.classList.add('genres-media')
 
-  genres = movie.genres
-    ? movie.genres
-    : genres.filter((g) => movie.genre_ids.includes(g.id))
+  const resolvedGenres = resolveGenres(media, genres)
 
-  genres.slice(0, 3).forEach((g) => {
-    const genreDiv = $('div')
-    genreDiv.classList.add('genre')
+  resolvedGenres.slice(0, 3).forEach((g) => {
+    const div = $('div')
+    div.classList.add('genre')
 
     const p = $('p')
     p.textContent = g.name
 
-    genreDiv.appendChild(p)
-    genresDiv.appendChild(genreDiv)
+    div.appendChild(p)
+    genresDiv.appendChild(div)
   })
 
-  // === CONTAINER COM INFORMAÇÕES
+  // === CONTAINER ===
   const contentDiv = $('div')
   contentDiv.classList.add('media-content')
   contentDiv.append(title, info, genresDiv)
 
-  // === MONTAGEM FINAL ===
+  // === FINAL ===
   card.append(img, contentDiv)
-
   return card
 }
 
-export function createTVCard(tv, { genres = [] } = {}) {
-  const card = $('div')
-  card.classList.add('card-media')
-
-  let src = ''
-  // === POSTER ===
-  if (tv.poster_path) {
-    src = 'https://image.tmdb.org/t/p/original' + tv.poster_path
-  } else {
-    src = '/assets/images/not-found-img.png'
-  }
-  const img = createImg(src)
-  img.classList.add('img-media')
-  img.id = 'img-media'
-  img.alt = tv.name
-
-  // === TÍTULO ===
-  const title = $('h2')
-  title.classList.add('title-media')
-  title.id = 'title-media'
-  title.textContent = tv.name ? tv.name : '---'
-
-  // === INFO Da SÉRIE (rating + data) ===
-  const info = $('div')
-  info.classList.add('info-media')
-
-  const ratingInfo = $('div')
-  ratingInfo.classList.add('rating-info')
-
-  const star = $('p')
-  star.innerHTML = `<i class="fa-solid fa-star"></i>`
-
-  const ratingP = $('p')
-  ratingP.classList.add('rating')
-  ratingP.id = 'rating'
-  ratingP.innerHTML = `<span id="rating-number">${
-    tv.vote_average ? tv.vote_average.toFixed(2) : '---'
-  }</span>/10`
-  ratingInfo.append(star, ratingP)
-
-  const dateP = $('p')
-  dateP.classList.add('data-media')
-  dateP.id = 'data-media'
-  dateP.textContent = tv.first_air_date ? tv.first_air_date : '---'
-
-  info.append(ratingInfo, dateP)
-
-  // === GÊNEROS ===
-  const genresDiv = $('div')
-  genresDiv.classList.add('genres-media')
-
-  genres = tv.genres
-    ? tv.genres
-    : genres.filter((g) => tv.genre_ids.includes(g.id))
-
-  genres.slice(0, 3).forEach((g) => {
-    const genreDiv = $('div')
-    genreDiv.classList.add('genre')
-
-    const p = $('p')
-    p.textContent = g.name
-
-    genreDiv.appendChild(p)
-    genresDiv.appendChild(genreDiv)
+export function createMovieCard(movie, options = {}) {
+  return createMediaCard(movie, {
+    titleKey: 'title',
+    dateKey: 'release_date',
+    ...options,
   })
+}
 
-  // === CONTAINER COM INFORMAÇÕES
-  const contentDiv = $('div')
-  contentDiv.classList.add('media-content')
-  contentDiv.append(title, info, genresDiv)
-
-  // === MONTAGEM FINAL ===
-  card.append(img, contentDiv)
-
-  return card
+export function createTVCard(tv, options = {}) {
+  return createMediaCard(tv, {
+    titleKey: 'name',
+    dateKey: 'first_air_date',
+    ...options,
+  })
 }
