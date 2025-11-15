@@ -64,7 +64,7 @@ export function createMovieCard(movie, { genres = [] } = {}) {
     ? movie.genres
     : genres.filter((g) => movie.genre_ids.includes(g.id))
 
-  genres.forEach((g) => {
+  genres.slice(0, 3).forEach((g) => {
     const genreDiv = $('div')
     genreDiv.classList.add('genre')
 
