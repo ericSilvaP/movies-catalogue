@@ -175,6 +175,66 @@ export class TMDb {
     )
     return this.fetchJSON(url, 'No series, movie or person found')
   }
+
+  async discoverMovie({
+    appendToResponse = [],
+    language = 'pt-BR',
+    includeAdult = false,
+    primaryReleaseYear = 0,
+    page = 1,
+    region = '',
+    year = 0,
+    sortBy = 'popularity.desc',
+    withGenres = '',
+  } = {}) {
+    let url = `${this.baseURL}/discover/movie?language=${language}&page=${page}`
+
+    url += `&include_adult=${includeAdult}`
+    url += `&sort_by=${sortBy}`
+
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
+
+    if (primaryReleaseYear) url += `&primary_release_year=${primaryReleaseYear}`
+
+    if (year) url += `&year=${year}`
+
+    if (region) url += `&region=${region}`
+
+    if (withGenres) url += `&with_genres=${withGenres}`
+
+    return this.fetchJSON(url, 'No movies found')
+  }
+
+  async discoverTV({
+    appendToResponse = [],
+    language = 'pt-BR',
+    includeAdult = false,
+    firstAirYear = 0,
+    page = 1,
+    region = '',
+    year = 0,
+    sortBy = 'popularity.desc',
+    withGenres = '',
+  } = {}) {
+    let url = `${this.baseURL}/discover/tv?language=${language}&page=${page}`
+
+    url += `&include_adult=${includeAdult}`
+    url += `&sort_by=${sortBy}`
+
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
+
+    if (firstAirYear) url += `&first_air_date_year=${firstAirYear}`
+
+    if (year) url += `&year=${year}`
+
+    if (region) url += `&region=${region}`
+
+    if (withGenres) url += `&with_genres=${withGenres}`
+
+    return this.fetchJSON(url, 'No TV shows found')
+  }
 }
 
 export function filterByGenre(list, genreId) {
