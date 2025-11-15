@@ -16,6 +16,6 @@ renderMediaPage({
   discoverOptions: { primaryReleaseYear: currentYear },
   genresFunction: tmdb.getMovieGenresList.bind(tmdb),
   grid: mediaGrid,
-  emptyMessage: 'Nenhum filme encontrado encontrada.',
+  emptyMessage: 'Nenhum filme encontrado.',
   paginationDiv: paginationDiv,
 })
