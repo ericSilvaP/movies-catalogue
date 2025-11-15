@@ -1,4 +1,4 @@
-export class TMBd {
+export class TMDb {
   constructor(apiKey) {
     this.apiKey = apiKey
     this.baseURL = 'https://api.themoviedb.org/3'
@@ -40,33 +40,33 @@ export class TMBd {
     return this.fetchJSON(url, 'Movie not found')
   }
 
-  async getSeries(seriesId, appendToResponse = [], language = 'pt-BR') {
-    let url = `${this.baseURL}/tv/${seriesId}?language=${language}`
+  async getTV(TVId, appendToResponse = [], language = 'pt-BR') {
+    let url = `${this.baseURL}/tv/${TVId}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
     return this.fetchJSON(url, 'Series not found')
   }
 
-  async getSeriesSeason(
-    seriesId,
+  async getTVSeason(
+    TVId,
     seasonNumber,
     appendToResponse = [],
     language = 'pt-BR'
   ) {
-    let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}?language=${language}`
+    let url = `${this.baseURL}/tv/${TVId}/season/${seasonNumber}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
     return this.fetchJSON(url, 'Season not found')
   }
 
-  async getSeriesEpisode(
-    seriesId,
+  async getTVEpisode(
+    TVId,
     seasonNumber,
     episodeNumber,
     appendToResponse = [],
     language = 'pt-BR'
   ) {
-    let url = `${this.baseURL}/tv/${seriesId}/season/${seasonNumber}/episode/${episodeNumber}?language=${language}`
+    let url = `${this.baseURL}/tv/${TVId}/season/${seasonNumber}/episode/${episodeNumber}?language=${language}`
     if (appendToResponse.length > 0)
       url += this.appendToResponseURL(appendToResponse)
     return this.fetchJSON(url, 'Episode not found')
@@ -100,7 +100,7 @@ export class TMBd {
     return this.fetchJSON(url, 'Error fetching movie genres')
   }
 
-  async getSeriesGenresList(language = 'pt-BR') {
+  async getTVGenresList(language = 'pt-BR') {
     const url = `${this.baseURL}/genre/tv/list?language=${language}`
     return this.fetchJSON(url, 'Error fetching series genres')
   }
@@ -132,7 +132,7 @@ export class TMBd {
     return this.fetchJSON(url, 'No movies found')
   }
 
-  async searchSeries(
+  async searchTV(
     query,
     {
       language = 'pt-BR',
@@ -174,6 +174,66 @@ export class TMBd {
       'multi'
     )
     return this.fetchJSON(url, 'No series, movie or person found')
+  }
+
+  async discoverMovie({
+    appendToResponse = [],
+    language = 'pt-BR',
+    includeAdult = false,
+    primaryReleaseYear = 0,
+    page = 1,
+    region = '',
+    year = 0,
+    sortBy = 'popularity.desc',
+    withGenres = '',
+  } = {}) {
+    let url = `${this.baseURL}/discover/movie?language=${language}&page=${page}`
+
+    url += `&include_adult=${includeAdult}`
+    url += `&sort_by=${sortBy}`
+
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
+
+    if (primaryReleaseYear) url += `&primary_release_year=${primaryReleaseYear}`
+
+    if (year) url += `&year=${year}`
+
+    if (region) url += `&region=${region}`
+
+    if (withGenres) url += `&with_genres=${withGenres}`
+
+    return this.fetchJSON(url, 'No movies found')
+  }
+
+  async discoverTV({
+    appendToResponse = [],
+    language = 'pt-BR',
+    includeAdult = false,
+    firstAirYear = 0,
+    page = 1,
+    region = '',
+    year = 0,
+    sortBy = 'popularity.desc',
+    withGenres = '',
+  } = {}) {
+    let url = `${this.baseURL}/discover/tv?language=${language}&page=${page}`
+
+    url += `&include_adult=${includeAdult}`
+    url += `&sort_by=${sortBy}`
+
+    if (appendToResponse.length > 0)
+      url += this.appendToResponseURL(appendToResponse)
+
+    if (firstAirYear) url += `&first_air_date_year=${firstAirYear}`
+
+    if (year) url += `&year=${year}`
+
+    if (region) url += `&region=${region}`
+
+    if (withGenres) url += `&with_genres=${withGenres}`
+
+    return this.fetchJSON(url, 'No TV shows found')
   }
 }
 
