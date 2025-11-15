@@ -18,7 +18,7 @@ export function createMovieCard(movie, { genres = [] } = {}) {
   if (movie.poster_path) {
     src = 'https://image.tmdb.org/t/p/original' + movie.poster_path
   } else {
-    src = 'assets/images/not-found-img.png'
+    src = '/assets/images/not-found-img.png'
   }
   const img = createImg(src)
   img.classList.add('img-media')
