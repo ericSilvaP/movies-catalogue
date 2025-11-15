@@ -192,15 +192,17 @@ main {
 }
 
 /* MEDIA CARD */
-.movie-cards {
+.media-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   justify-items: center;
   gap: 3rem;
   width: 90%;
+  color: white;
+  font-size: 3rem;
 }
 
-.card-movie {
+.card-media {
   width: 14rem;
   background-color: var(--second-color);
   display: flex;
@@ -212,25 +214,25 @@ main {
   padding-bottom: 0.8rem;
 }
 
-.card-movie:hover {
+.card-media:hover {
   transform: scale(1.04);
   transition: 0.4s;
 }
 
-.card-movie .img-movie {
+.card-media .img-media {
   image-rendering: auto;
   width: auto;
   object-fit: contain;
   border-radius: 4px 4px 0 0;
 }
 
-.movie-content {
+.media-content {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
 }
 
-.card-movie .title-movie {
+.card-media .title-media {
   font-size: 1rem;
   font-family: sans-serif;
   text-align: center;
@@ -238,14 +240,14 @@ main {
   margin: 0;
 }
 
-.info-movie {
+.info-media {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.5rem;
 }
 
-.info-movie p {
+.info-media p {
   margin: 0;
   color: white;
   font-family: sans-serif;
@@ -263,7 +265,7 @@ main {
   color: var(--fourth-color);
 }
 
-.genres-movie {
+.genres-media {
   padding: 0 0.2rem;
   display: flex;
   flex-wrap: wrap;
