@@ -1,15 +1,26 @@
+import { API_READ_KEY } from './constants.js'
 import { createMovieCard } from './elementsFactory.js'
-import { API_READ_KEY } from './script.js'
 import { TMDb } from './tmdb.js'
 
-const params = new URLSearchParams(window.location.search)
-const moviesGrid = document.querySelector('.movie-cards')
+const moviesGrid = document.querySelector('.media-cards')
 const tmdb = new TMDb(API_READ_KEY)
+const params = new URLSearchParams(window.location.search)
 let searchParam = params.get('query')
+const currentYear = new Date().getFullYear()
 const moviesGenres = await tmdb.getMovieGenresList()
-
-if (searchParam.trim() !== '') {
+const title = document.querySelector('.title-section')
+const movies = await tmdb.discoverMovie({
+  primaryReleaseYear: currentYear,
+})
+if (searchParam === null) {
+  movies.results.forEach((movie) => {
+    moviesGrid.appendChild(
+      createMovieCard(movie, { genres: moviesGenres.genres })
+    )
+  })
+} else if (searchParam.trim() !== '') {
   searchParam = searchParam.trim()
+  title.textContent = `Pesquisa por "${searchParam}"`
 
   try {
     const movies = await tmdb.searchMovie(searchParam)
@@ -24,7 +35,7 @@ if (searchParam.trim() !== '') {
       }
     }
   } catch (e) {
-    moviesGrid.textContent = 'Erro ao buscar filmes. Tente novamente.'
+    moviesGrid.textContent = 'Erro ao buscar. Tente novamente.'
   }
 } else {
   moviesGrid.textContent =
