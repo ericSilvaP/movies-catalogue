@@ -11,7 +11,7 @@ function $(tagName) {
 
 export function createMovieCard(movie, { genres = [] } = {}) {
   const card = $('div')
-  card.classList.add('card-movie')
+  card.classList.add('card-media')
 
   let src = ''
   // === POSTER ===
@@ -21,19 +21,19 @@ export function createMovieCard(movie, { genres = [] } = {}) {
     src = 'assets/images/not-found-img.png'
   }
   const img = createImg(src)
-  img.classList.add('img-movie')
-  img.id = 'img-movie'
+  img.classList.add('img-media')
+  img.id = 'img-media'
   img.alt = movie.title
 
   // === TÍTULO ===
   const title = $('h2')
-  title.classList.add('title-movie')
-  title.id = 'title-movie'
+  title.classList.add('title-media')
+  title.id = 'title-media'
   title.textContent = movie.title ? movie.title : '---'
 
   // === INFO DO FILME (rating + data) ===
   const info = $('div')
-  info.classList.add('info-movie')
+  info.classList.add('info-media')
 
   const ratingInfo = $('div')
   ratingInfo.classList.add('rating-info')
@@ -50,15 +50,15 @@ export function createMovieCard(movie, { genres = [] } = {}) {
   ratingInfo.append(star, ratingP)
 
   const dateP = $('p')
-  dateP.classList.add('data-movie')
-  dateP.id = 'data-movie'
+  dateP.classList.add('data-media')
+  dateP.id = 'data-media'
   dateP.textContent = movie.release_date ? movie.release_date : '---'
 
   info.append(ratingInfo, dateP)
 
   // === GÊNEROS ===
   const genresDiv = $('div')
-  genresDiv.classList.add('genres-movie')
+  genresDiv.classList.add('genres-media')
 
   genres = movie.genres
     ? movie.genres
@@ -77,7 +77,7 @@ export function createMovieCard(movie, { genres = [] } = {}) {
 
   // === CONTAINER COM INFORMAÇÕES
   const contentDiv = $('div')
-  contentDiv.classList.add('movie-content')
+  contentDiv.classList.add('media-content')
   contentDiv.append(title, info, genresDiv)
 
   // === MONTAGEM FINAL ===
