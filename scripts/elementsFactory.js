@@ -243,7 +243,7 @@ export function createMediaDetailsPage(media, genres = []) {
   const infoSection = $('section')
   infoSection.classList.add('movie-info-container')
 
-  // Direção
+  // === DIRETORES ===
   const crew = media.credits.crew
   const directors = crew
     .filter((e) => e.known_for_department === 'Directing')
@@ -252,21 +252,29 @@ export function createMediaDetailsPage(media, genres = []) {
     .filter((e) => e.known_for_department === 'Production')
     .map((e) => e.name)
 
-  const dirP = $('p')
-  dirP.innerHTML = `Direção:
-  <span class="movie-info" id="film-direction">
-  ${Array.isArray(productors) ? productors.join(', ') : '---'}
-  </span>`
+  // === PRODUTORES ===
+  const productorsP = $('p')
+  productorsP.innerHTML = `Produtores:
+      <span class="movie-info" id="film-direction">
+        ${
+          Array.isArray(directors) && directors.length > 0
+            ? directors.join(', ')
+            : '---'
+        }
+      </span>`
 
   const hr1 = $('hr')
   hr1.classList.add('line')
 
-  // === PRODUTORES ===
-  const productorsP = $('p')
-  productorsP.innerHTML = `Produtores:
-      <span class="movie-info" id="productors">
-        ${Array.isArray(directors) ? directors.join(', ') : '---'}
-      </span>`
+  const dirP = $('p')
+  dirP.innerHTML = `Direção:
+  <span class="movie-info" id="productors">
+  ${
+    Array.isArray(productors) && productors.length > 0
+      ? productors.join(', ')
+      : '---'
+  }
+  </span>`
 
   const hr2 = $('hr')
   hr2.classList.add('line')
@@ -328,7 +336,7 @@ export function createMediaDetailsPage(media, genres = []) {
   const recommend = media.recommendations
   const recCards = $('section')
   recCards.classList.add('media-cards')
-  if (recommend) {
+  if (recommend.results.length > 0) {
     recommend.results
       .slice(0, 4)
       .forEach((e) => recCards.appendChild(createMovieCard(e)))
