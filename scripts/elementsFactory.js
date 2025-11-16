@@ -219,7 +219,7 @@ export function createMediaDetailsPage(media, genres = []) {
 
   majorContainer.appendChild(content)
 
-  // ====================== GÊNEROS =======================
+  // === GÊNEROS ===
   const genreContainer = $('div')
   genreContainer.classList.add('genre-container')
 
@@ -257,8 +257,8 @@ export function createMediaDetailsPage(media, genres = []) {
   productorsP.innerHTML = `Produtores:
       <span class="movie-info" id="film-direction">
         ${
-          Array.isArray(directors) && directors.length > 0
-            ? directors.join(', ')
+          Array.isArray(productors) && productors.length > 0
+            ? productors.join(', ')
             : '---'
         }
       </span>`
@@ -270,8 +270,8 @@ export function createMediaDetailsPage(media, genres = []) {
   dirP.innerHTML = `Direção:
   <span class="movie-info" id="productors">
   ${
-    Array.isArray(productors) && productors.length > 0
-      ? productors.join(', ')
+    Array.isArray(directors) && directors.length > 0
+      ? directors.join(', ')
       : '---'
   }
   </span>`
