@@ -27,6 +27,11 @@ function createMediaCard(
   // === CARD ===
   const card = $('div')
   card.classList.add('card-media')
+  // === MODAL ===
+  card.addEventListener('click', () => {
+    openMediaModal(media, genres)
+    console.log('Card clicado:', media.title || media.name);
+  })
 
   // === POSTER ===
   const img = createImg(getPoster(media.poster_path))
@@ -108,3 +113,58 @@ export function createTVCard(tv, options = {}) {
     ...options,
   })
 }
+// === ABRIR MODAL ===
+export function openMediaModal(media, allGenres = []) {
+    const modal = document.getElementById('media-modal');
+    if (!modal) {
+        console.error('Elemento modal com ID "media-modal" não encontrado.');
+        return;
+    }
+
+    document.getElementById('modal-poster').src = getPoster(media.poster_path);
+    document.getElementById('modal-title').textContent = media.title || media.name || 'Título Indisponível';
+    
+    const rating = media.vote_average ? media.vote_average.toFixed(1) : '---';
+    document.getElementById('modal-rating-number').textContent = rating;
+    
+    const date = media.release_date || media.first_air_date || 'Data Indisponível';
+    document.getElementById('modal-date').textContent = date;
+    
+    document.getElementById('modal-overview').textContent = media.overview || 'Sinopse não disponível.';
+
+    const genresDiv = document.getElementById('modal-genres');
+    genresDiv.innerHTML = '';
+
+    const resolvedGenres = resolveGenres(media, allGenres);
+
+    resolvedGenres.forEach((g) => {
+        const div = $('div'); 
+        div.classList.add('genre');
+        const p = $('p');
+        p.textContent = g.name;
+
+        div.appendChild(p);
+        genresDiv.appendChild(div);
+    });
+
+    modal.classList.add('active');
+}
+// === FECHAR MODAL ===
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('media-modal');
+    const closeBtn = document.getElementById('modal-close-btn');
+
+    if (modal) {
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+});
