@@ -10,10 +10,12 @@ export function createPagination({
 }) {
   async function load(page = 1) {
     const data = await fetchPage(page)
-    if (data.results.length === 0) return
+    console.log(data)
+    if (data.results?.length === 0 || !data || data.episodes?.length === 0)
+      return
 
-    renderItems(data.results)
-    renderPaginationControls(data.total_pages, page)
+    renderItems(data.results || data.episodes)
+    renderPaginationControls(data.total_pages || data.seasons_number, page)
   }
 
   function renderItems(list) {

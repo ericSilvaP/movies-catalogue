@@ -1,3 +1,6 @@
+import { API_READ_KEY } from './constants.js'
+import { createPagination } from './pagination.js'
+import { TMDb } from './tmdb.js'
 import { formatTime } from './utils.js'
 
 function createImg(src) {
@@ -41,7 +44,7 @@ function createEpisodeCard(episode) {
 
   const epTitle = $('h3')
   epTitle.classList.add('title-ep')
-  epTitle.innerHTML = `T<span id="num-season">${episode.season_number}</span>.E<span id="num-ep">${episode.episode_number}</span>${episode.name}`
+  epTitle.innerHTML = `T<span id="num-season">${episode.season_number}</span>.E<span id="num-ep">${episode.episode_number}</span> - ${episode.name}`
 
   const durationP = $('p')
   durationP.classList.add('duration-ep')
@@ -289,14 +292,34 @@ export function createMediaDetailsPage(media, genres = []) {
     .map((e) => e.name)
 
   // === TEMPORADAS (para séries) ===
+  async function fetchSeason(seasonNumber, tv = media) {
+    const tmdb = new TMDb(API_READ_KEY)
+    const season = await tmdb.getTVSeason(tv.id, seasonNumber)
+    return { ...season, seasons_number: tv.seasons.length }
+  }
+
   const seasonsDiv = $('div')
   seasonsDiv.classList.add('seasons-info')
 
   const seasonsTitle = $('h2')
   seasonsTitle.classList.add('title-details-items')
 
-  const epsDiv = $('div')
-  epsDiv.classList.add('episodes-list')
+  const seasonsPagination = $('ul')
+  seasonsPagination.classList.add('seasons-numbers')
+
+  const epsCardsContentDiv = $('div')
+  epsCardsContentDiv.classList.add('episodes-list')
+
+  seasonsDiv.append(seasonsTitle, seasonsPagination, epsCardsContentDiv)
+
+  const pagination = createPagination({
+    paginationDiv: seasonsPagination,
+    grid: epsCardsContentDiv,
+    fetchPage: fetchSeason,
+    cardCreator: createEpisodeCard,
+    genres: [],
+  })
+  pagination.load(1)
 
   // === PRODUTORES ===
   const productorsP = $('p')
@@ -374,7 +397,16 @@ export function createMediaDetailsPage(media, genres = []) {
   recTitle.classList.add('title-details-items')
   recTitle.textContent = 'Recomendados'
 
-  infoSection.append(dirP, hr1, productorsP, hr2, castDiv, imagesDiv, recTitle)
+  infoSection.append(
+    dirP,
+    hr1,
+    productorsP,
+    hr2,
+    seasonsDiv,
+    castDiv,
+    imagesDiv,
+    recTitle
+  )
 
   majorContainer.appendChild(infoSection)
 
