@@ -232,7 +232,10 @@ export function createMediaDetailsPage(media, genres = []) {
   const durationP = $('p')
   durationP.classList.add('details-duration')
   durationP.id = 'details-duration'
-  durationP.innerHTML = `<span>${formatTime(media.runtime) || '--'}</span>`
+  const formatedTime = formatTime(media.runtime)
+  durationP.innerHTML = `<span>${
+    formatedTime.includes('NaN') ? '' : formatedTime
+  }</span>`
 
   timeInfo.append(dateP, durationP)
 
