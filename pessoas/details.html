@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>CatMovie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nobile:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container-logo container-logo">
+        <img
+          class="header-img-logo"
+          src="/assets/images/logo-first.png"
+          alt="logo CatMovies"
+        />
+        <p>Cat Movies</p>
+      </div>
+      <i class="menu-burger fa-solid fa-bars"></i>
+      <div class="options">
+        <p><a href="#">Início</a></p>
+        <p><a href="/filmes/filmes.html">Filmes</a></p>
+        <p><a href="/tv/tv.html">Séries</a></p>
+      </div>
+    </header>
+
+    <main>
+      <div class="search-bar">
+        <form class="search-bar-form">
+          <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <input type="search" name="query" required />
+        </form>
+        <div class="filter-container">
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      </div>
+      <!-- <div id="loading" class="loading hidden"></div> -->
+
+      <section class="people-details">
+        <h1>Fulano de Tal</h1>
+        <p class="profession"></p>
+        <img
+          class="img-people"
+          src="/assets/images/img-movie.jpg"
+          alt="imagem do profissional"
+        />
+        <p class="biography">
+          Tim Robbins nasceu o 16 de outubro de 1958 em West Covina, Califórnia,
+          EUA. É ator e produtor, conhecido pelo seu trabalho em Sobre Meninos e
+          Lobos (2003), O Jogador (1992) e Howard, o Super-Herói (1986). Foi
+          casado com Gratiela Brancusi
+        </p>
+        <p>Nascido(a) em: <span class="date-birth">16/10/1958</span></p>
+
+        <div class="movie-participation">
+          <div class="img">
+            <img src="/assets/images/img-movie.jpg" alt="imagens pessoas" />
+          </div>
+        </div>
+
+        <div class="movies-people">
+          <h2>Conhecido por</h2>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <hr class="line" />
+      <div class="footer-content">
+        <div class="container-logo">
+          <img
+            class="img-logo"
+            src="/assets/images/logo-first.png"
+            alt="logo CatMovies"
+          />
+          <p>Cat Movies</p>
+        </div>
+        <p>
+          Universide Estadual do Piauí © 2025 - Desenvolvido por: Kauã, Wilk,
+          Eric, Enzo
+        </p>
+      </div>
+    </footer>
+    <script type="module" src="../../scripts/movieDetails.js"></script>
+  </body>
+</html>
