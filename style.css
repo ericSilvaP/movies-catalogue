@@ -443,11 +443,46 @@ main {
 }
 
 .title-team-info {
+  color: var(--fourth-color);
+  font-family: var(--second-font);
+  font-size: 1.3rem;
+}
+
+.cast-cards {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 1rem;
+}
+
+.card-actor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.actor-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 4px;
 }
 
 .actor-img {
-  width: 20%;
-  height: 20%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.actor-name {
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
 }
 
 /* .details-close-btn {
