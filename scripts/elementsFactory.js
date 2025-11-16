@@ -305,7 +305,7 @@ export function createMediaDetailsPage(media, genres = []) {
     seasonsTitle.classList.add('title-details-items')
 
     const seasonsPagination = $('ul')
-    seasonsPagination.classList.add('seasons-numbers')
+    seasonsPagination.classList.add('pagination')
 
     const epsCardsContentDiv = $('div')
     epsCardsContentDiv.classList.add('episodes-list')
