@@ -22,6 +22,42 @@ function resolveGenres(media, genres) {
     : genres.filter((g) => media.genre_ids?.includes(g.id))
 }
 
+function createEpisodeCard(episode) {
+  const card = $('div')
+  card.classList.add('episodes-card')
+
+  const epImgDiv = $('div')
+  epImgDiv.classList.add('ep-img-wrap')
+
+  const epImg = $('img')
+  epImg.classList.add('img-ep')
+  epImg.src = getPoster(episode.still_path)
+  epImg.alt = 'imagem da temporada'
+
+  epImgDiv.appendChild(epImg)
+
+  const epInfoDiv = $('div')
+  epInfoDiv.classList.add('info-ep')
+
+  const epTitle = $('h3')
+  epTitle.classList.add('title-ep')
+  epTitle.innerHTML = `T<span id="num-season">${episode.season_number}</span>.E<span id="num-ep">${episode.episode_number}</span>${episode.name}`
+
+  const durationP = $('p')
+  durationP.classList.add('duration-ep')
+  durationP.innerHTML = `<span class="duration-number">${formatTime(
+    episode.runtime
+  )}</span>`
+
+  const synopsisP = $('p')
+  synopsisP.classList.add('synopsis-ep')
+  synopsisP.textContent = episode.overview || 'Sinopse não disponível'
+
+  epInfoDiv.append(epTitle, durationP, synopsisP)
+  card.append(epImgDiv, epInfoDiv)
+  return card
+}
+
 function createMediaCard(
   media,
   { titleKey = 'title', dateKey = 'release_date', genres = [] } = {}
@@ -251,6 +287,16 @@ export function createMediaDetailsPage(media, genres = []) {
   const productors = crew
     .filter((e) => e.known_for_department === 'Production')
     .map((e) => e.name)
+
+  // === TEMPORADAS (para séries) ===
+  const seasonsDiv = $('div')
+  seasonsDiv.classList.add('seasons-info')
+
+  const seasonsTitle = $('h2')
+  seasonsTitle.classList.add('title-details-items')
+
+  const epsDiv = $('div')
+  epsDiv.classList.add('episodes-list')
 
   // === PRODUTORES ===
   const productorsP = $('p')
