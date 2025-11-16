@@ -1,3 +1,5 @@
+import { formatTime } from './utils.js'
+
 function createImg(src) {
   const img = document.createElement('img')
   img.src = src
@@ -191,7 +193,7 @@ export function createMediaDetailsPage(media, genres = []) {
   const durationP = $('p')
   durationP.classList.add('details-duration')
   durationP.id = 'details-duration'
-  durationP.innerHTML = `<span>${media.runtime || '--'}</span>m`
+  durationP.innerHTML = `<span>${formatTime(media.runtime) || '--'}</span>`
 
   timeInfo.append(dateP, durationP)
 
