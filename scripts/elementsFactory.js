@@ -292,34 +292,35 @@ export function createMediaDetailsPage(media, genres = []) {
     .map((e) => e.name)
 
   // === TEMPORADAS (para séries) ===
-  async function fetchSeason(seasonNumber, tv = media) {
-    const tmdb = new TMDb(API_READ_KEY)
-    const season = await tmdb.getTVSeason(tv.id, seasonNumber)
-    return { ...season, seasons_number: tv.seasons.length }
-  }
-
   const seasonsDiv = $('div')
   seasonsDiv.classList.add('seasons-info')
+  if (media.name) {
+    async function fetchSeason(seasonNumber, tv = media) {
+      const tmdb = new TMDb(API_READ_KEY)
+      const season = await tmdb.getTVSeason(tv.id, seasonNumber)
+      return { ...season, seasons_number: tv.seasons.length }
+    }
 
-  const seasonsTitle = $('h2')
-  seasonsTitle.classList.add('title-details-items')
+    const seasonsTitle = $('h2')
+    seasonsTitle.classList.add('title-details-items')
 
-  const seasonsPagination = $('ul')
-  seasonsPagination.classList.add('seasons-numbers')
+    const seasonsPagination = $('ul')
+    seasonsPagination.classList.add('seasons-numbers')
 
-  const epsCardsContentDiv = $('div')
-  epsCardsContentDiv.classList.add('episodes-list')
+    const epsCardsContentDiv = $('div')
+    epsCardsContentDiv.classList.add('episodes-list')
 
-  seasonsDiv.append(seasonsTitle, seasonsPagination, epsCardsContentDiv)
+    seasonsDiv.append(seasonsTitle, seasonsPagination, epsCardsContentDiv)
 
-  const pagination = createPagination({
-    paginationDiv: seasonsPagination,
-    grid: epsCardsContentDiv,
-    fetchPage: fetchSeason,
-    cardCreator: createEpisodeCard,
-    genres: [],
-  })
-  pagination.load(1)
+    const pagination = createPagination({
+      paginationDiv: seasonsPagination,
+      grid: epsCardsContentDiv,
+      fetchPage: fetchSeason,
+      cardCreator: createEpisodeCard,
+      genres: [],
+    })
+    pagination.load(1)
+  }
 
   // === PRODUTORES ===
   const productorsP = $('p')

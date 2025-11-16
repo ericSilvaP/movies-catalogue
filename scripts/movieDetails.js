@@ -11,6 +11,5 @@ const movie = await tmdb.getMovie(id, ['credits', 'images', 'recommendations'])
 const genres = await tmdb.getMovieGenresList()
 const main = document.querySelector('main')
 
-console.log(movie)
 main.appendChild(createMediaDetailsPage(movie, genres.genres))
 hideLoading()

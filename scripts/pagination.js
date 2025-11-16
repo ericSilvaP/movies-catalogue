@@ -10,7 +10,6 @@ export function createPagination({
 }) {
   async function load(page = 1) {
     const data = await fetchPage(page)
-    console.log(data)
     if (data.results?.length === 0 || !data || data.episodes?.length === 0)
       return
 
