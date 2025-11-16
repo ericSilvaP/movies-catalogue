@@ -1,3 +1,4 @@
+import { showLoading } from './loading.js'
 import { createPagination } from '/scripts/pagination.js'
 
 export async function renderMediaPage({
@@ -14,6 +15,8 @@ export async function renderMediaPage({
   const params = new URLSearchParams(window.location.search)
   const title = document.querySelector('.title-section')
   let searchParam = params.get('query')
+
+  showLoading()
 
   async function fetchPage(page = 1) {
     if (!searchParam) {
@@ -55,6 +58,5 @@ export async function renderMediaPage({
     cardCreator,
     genres: genresList,
   })
-
   pagination.load(1)
 }
