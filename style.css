@@ -612,6 +612,66 @@ main {
   margin: 20px auto;
 }
 
+/* PESSOA-DETALHES */
+
+.people-details {
+  padding: 1rem 0;
+  font-family: var(--base-font);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title-people {
+  font-size: 2rem;
+  color: var(--fourth-color);
+}
+
+.biography {
+  color: white;
+  font-size: 1.8rem;
+  text-align: left;
+}
+
+.list-images-people {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.list-images-people img {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
+.img-people {
+  width: 20rem;
+  height: 30rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
+.imgs-participation {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.imgs-participation img {
+  width: 16rem;
+  height: 16rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
 .hidden {
   display: none;
 }
@@ -702,5 +762,29 @@ main {
   .info-ep .title-ep {
     color: var(--fourth-color);
     font-size: 2rem;
+  }
+
+  /* PESSOA-DETALHES */
+
+  .people-name {
+    font-size: 3rem;
+  }
+
+  .img-people {
+    width: 30rem;
+    height: 40rem;
+  }
+
+  .list-images-people img {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  .imgs-participation img {
+    width: 22rem;
+    height: 22rem;
+    object-fit: cover;
+    border-radius: 2px;
+    border-radius: 4px;
   }
 }
