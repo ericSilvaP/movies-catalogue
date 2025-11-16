@@ -237,7 +237,7 @@ export function createMediaDetailsPage(media, genres = []) {
 
   majorContainer.appendChild(genreContainer)
 
-  // ====================== INFO SECUNDÁRIA =======================
+  // === INFO SECUNDÁRIA ===
   const infoSection = $('section')
   infoSection.classList.add('movie-info-container')
 
