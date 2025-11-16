@@ -292,6 +292,7 @@ export function createMediaDetailsPage(media, genres = []) {
   castDiv.append(castTitle, castCards)
 
   // === IMAGENS ===
+  const posters = media.images.posters
   const imagesDiv = $('div')
   imagesDiv.classList.add('images-details')
 
@@ -302,10 +303,12 @@ export function createMediaDetailsPage(media, genres = []) {
   const imagesCards = $('div')
   imagesCards.classList.add('movie-info-cards')
 
-  if (media.images && media.images.length > 0) {
-    media.images.forEach((img) => {
+  if (posters && posters.length > 0) {
+    posters.slice(0, 4).forEach((img) => {
       imagesCards.appendChild(createImageCard(img))
     })
+  } else {
+    imagesCards.textContent = 'Sem imagens'
   }
 
   imagesDiv.append(imgTitle, imagesCards)
