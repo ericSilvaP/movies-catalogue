@@ -5,7 +5,7 @@ import { TMDb } from './tmdb.js'
 const tmdb = new TMDb(API_READ_KEY)
 const params = new URLSearchParams(window.location.search)
 const id = params.get('id')
-const movie = await tmdb.getMovie(id, ['credits', 'images'])
+const movie = await tmdb.getMovie(id, ['credits', 'images', 'recommendations'])
 const genres = await tmdb.getMovieGenresList()
 const main = document.querySelector('main')
 

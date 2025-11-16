@@ -322,8 +322,16 @@ export function createMediaDetailsPage(media, genres = []) {
   majorContainer.appendChild(infoSection)
 
   // última seção de cards recomendados
+  const recommend = media.recommendations
   const recCards = $('section')
   recCards.classList.add('media-cards')
+  if (recommend) {
+    recommend.results
+      .slice(0, 4)
+      .forEach((e) => recCards.appendChild(createMovieCard(e)))
+  } else {
+    recCards.textContent = 'Sem filmes recomendados.'
+  }
 
   majorContainer.appendChild(recCards)
 
