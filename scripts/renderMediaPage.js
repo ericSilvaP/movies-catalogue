@@ -24,7 +24,7 @@ export async function renderMediaPage({
 
     if (searchParam === '') {
       grid.textContent =
-        'Pesquise no CatMovie uma palavra ou frase na caixa acima'
+        'Pesquise no CatMovies uma palavra ou frase na caixa acima'
       return { results: [], total_pages: 1 }
     }
 
@@ -35,7 +35,6 @@ export async function renderMediaPage({
     else if (type === 'tv') data = await tmdb.searchTV(searchParam, page)
     else data = await tmdb.searchMulti(searchParam, page)
 
-    // multi → filtrar
     if (type === 'multi') {
       data.results = data.results.filter(
         (i) => i.media_type === 'movie' || i.media_type === 'tv'
