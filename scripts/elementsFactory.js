@@ -29,8 +29,9 @@ function createMediaCard(
   card.classList.add('card-media')
   // === details ===
   card.addEventListener('click', () => {
-    openMediaDetails(media, genres)
-    console.log('Card clicado:', media.title || media.name)
+    window.location.href = media.title
+      ? `/filmes/details/detalhes.html?id=${media.id}`
+      : `/tv/details/detalhes.html?id=${media.id}`
   })
 
   // === POSTER ===
