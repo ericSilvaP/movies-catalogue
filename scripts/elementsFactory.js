@@ -113,60 +113,205 @@ export function createTVCard(tv, options = {}) {
     ...options,
   })
 }
-// === ABRIR details ===
-// export function openMediaDetails(media, allGenres = []) {
-//   const details = document.getElementById('media-details')
-//   if (!details) {
-//     console.error('Elemento details com ID "media-details" não encontrado.')
-//     return
-//   }
 
-//   document.getElementById('details-poster').src = getPoster(media.poster_path)
-//   document.getElementById('details-title').textContent =
-//     media.title || media.name || 'Título Indisponível'
+function createCastCard(actor) {
+  const card = $('div')
+  card.classList.add('card-movie-info')
 
-//   const rating = media.vote_average ? media.vote_average.toFixed(1) : '---'
-//   document.getElementById('details-rating-number').textContent = rating
+  const wrap = $('div')
+  wrap.classList.add('movie-img-wrap')
 
-//   const date = media.release_date || media.first_air_date || 'Data Indisponível'
-//   document.getElementById('details-date').textContent = date
+  const img = createImg(getPoster(actor.profile_path))
+  img.classList.add('movie-img')
+  img.alt = actor.name
 
-//   document.getElementById('details-overview').textContent =
-//     media.overview || 'Sinopse não disponível.'
+  wrap.appendChild(img)
 
-//   const genresDiv = document.getElementById('details-genres')
-//   genresDiv.innerHTML = ''
+  const name = $('p')
+  name.classList.add('actor-name')
+  name.textContent = actor.name
 
-//   const resolvedGenres = resolveGenres(media, allGenres)
+  card.append(wrap, name)
+  return card
+}
 
-//   resolvedGenres.forEach((g) => {
-//     const div = $('div')
-//     div.classList.add('genre')
-//     const p = $('p')
-//     p.textContent = g.name
+function createImageCard(image) {
+  const card = $('div')
+  card.classList.add('card-movie-info')
 
-//     div.appendChild(p)
-//     genresDiv.appendChild(div)
-//   })
+  const wrap = $('div')
+  wrap.classList.add('movie-img-wrap')
 
-//   details.classList.add('active')
-// }
-// // === FECHAR details ===
-// document.addEventListener('DOMContentLoaded', () => {
-//   const details = document.getElementById('media-details')
-//   const closeBtn = document.getElementById('details-close-btn')
+  const img = createImg(getPoster(image.file_path))
+  img.classList.add('movie-img')
+  img.alt = 'imagem da obra'
 
-//   if (details) {
-//     if (closeBtn) {
-//       closeBtn.addEventListener('click', () => {
-//         details.classList.remove('active')
-//       })
-//     }
+  wrap.appendChild(img)
+  card.appendChild(wrap)
 
-//     details.addEventListener('click', (e) => {
-//       if (e.target === details) {
-//         details.classList.remove('active')
-//       }
-//     })
-//   }
-// })
+  return card
+}
+
+export function createMediaDetailsPage(media, genres = []) {
+  const majorContainer = $('div')
+  majorContainer.id = 'media-details'
+  majorContainer.classList.add('details-overlay')
+
+  const content = $('div')
+  content.classList.add('details-content')
+
+  // === POSTER ===
+  const poster = createImg(getPoster(media.poster_path))
+  poster.id = 'details-poster'
+  poster.classList.add('details-poster')
+  poster.alt = media.title || media.name
+
+  // === DETAILS CONTAINER ===
+  const detailsContainer = $('div')
+  detailsContainer.classList.add('details-details-container')
+
+  const info = $('div')
+  info.classList.add('details-info')
+
+  // === TÍTULO ===
+  const title = $('h2')
+  title.id = 'details-title'
+  title.textContent = media.title || media.name
+
+  // === DATA + DURAÇÃO ===
+  const timeInfo = $('div')
+  timeInfo.classList.add('time-info')
+
+  const dateP = $('p')
+  dateP.classList.add('details-date')
+  dateP.id = 'details-date'
+  dateP.textContent = media.release_date || media.first_air_date || '---'
+
+  const durationP = $('p')
+  durationP.classList.add('details-duration')
+  durationP.id = 'details-duration'
+  durationP.innerHTML = `<span>${media.runtime || '--'}</span>m`
+
+  timeInfo.append(dateP, durationP)
+
+  // === RATING ===
+  const rating = $('p')
+  rating.classList.add('details-rating')
+  rating.innerHTML = `
+    <i class="fa-solid fa-star"></i>
+    <span id="details-rating-number">
+      ${media.vote_average ? media.vote_average.toFixed(2) : '--'}
+    </span>/10
+  `
+
+  // === SINOPSE ===
+  const synopsis = $('h3')
+  synopsis.classList.add('details-synopsis')
+  synopsis.textContent = media.overview || 'Sinopse não disponível'
+
+  info.append(title, timeInfo, rating, synopsis)
+  detailsContainer.appendChild(info)
+
+  content.append(poster, detailsContainer)
+
+  majorContainer.appendChild(content)
+
+  // ====================== GÊNEROS =======================
+  const genreContainer = $('div')
+  genreContainer.classList.add('genre-container')
+
+  const resolvedGenres = resolveGenres(media, genres)
+
+  resolvedGenres.forEach((g) => {
+    const div = $('div')
+    div.classList.add('genres-media')
+
+    const p = $('p')
+    p.classList.add('genre-details')
+    p.textContent = g.name
+
+    div.appendChild(p)
+    genreContainer.appendChild(div)
+  })
+
+  majorContainer.appendChild(genreContainer)
+
+  // ====================== INFO SECUNDÁRIA =======================
+  const infoSection = $('section')
+  infoSection.classList.add('movie-info-container')
+
+  // Direção
+  const dirP = $('p')
+  dirP.innerHTML = `Direção:
+      <span class="movie-info" id="film-direction">
+        ${media.director || '---'}
+      </span>`
+
+  const hr1 = $('hr')
+  hr1.classList.add('line')
+
+  // Roteiro
+  const roteiristasP = $('p')
+  roteiristasP.innerHTML = `Roteiristas:
+      <span class="movie-info" id="screenwriters">
+        ${Array.isArray(media.writers) ? media.writers.join(', ') : '---'}
+      </span>`
+
+  const hr2 = $('hr')
+  hr2.classList.add('line')
+
+  // === ELENCO ===
+  const castDiv = $('div')
+  castDiv.classList.add('cast-details')
+
+  const castTitle = $('h2')
+  castTitle.classList.add('title-details-items')
+  castTitle.textContent = 'Elenco'
+
+  const castCards = $('div')
+  castCards.classList.add('movie-info-cards')
+
+  if (media.cast && media.cast.length > 0) {
+    media.cast.slice(0, 10).forEach((actor) => {
+      const card = createCastCard(actor)
+      castCards.appendChild(card)
+    })
+  }
+
+  castDiv.append(castTitle, castCards)
+
+  // === IMAGENS ===
+  const imagesDiv = $('div')
+  imagesDiv.classList.add('images-details')
+
+  const imgTitle = $('h2')
+  imgTitle.classList.add('title-details-items')
+  imgTitle.textContent = 'Imagens'
+
+  const imagesCards = $('div')
+  imagesCards.classList.add('movie-info-cards')
+
+  if (media.images && media.images.length > 0) {
+    media.images.forEach((img) => {
+      imagesCards.appendChild(createImageCard(img))
+    })
+  }
+
+  imagesDiv.append(imgTitle, imagesCards)
+
+  const recTitle = $('h2')
+  recTitle.classList.add('title-details-items')
+  recTitle.textContent = 'Recomendados'
+
+  infoSection.append(dirP, hr1, roteiristasP, hr2, castDiv, imagesDiv, recTitle)
+
+  majorContainer.appendChild(infoSection)
+
+  // última seção de cards recomendados
+  const recCards = $('section')
+  recCards.classList.add('media-cards')
+
+  majorContainer.appendChild(recCards)
+
+  return majorContainer
+}
