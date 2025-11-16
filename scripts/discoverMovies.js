@@ -7,6 +7,7 @@ const tmdb = new TMDb(API_READ_KEY)
 const currentYear = new Date().getFullYear()
 const mediaGrid = document.querySelector('.media-cards')
 const paginationDiv = document.querySelector('#pagination')
+const genres = await tmdb.getMovieGenresList()
 
 renderMediaPage({
   tmdb,
@@ -14,7 +15,7 @@ renderMediaPage({
   cardCreator: createMovieCard,
   discoverFunction: tmdb.discoverMovie.bind(tmdb),
   discoverOptions: { primaryReleaseYear: currentYear },
-  genresFunction: tmdb.getMovieGenresList.bind(tmdb),
+  genresList: genres.genres,
   grid: mediaGrid,
   emptyMessage: 'Nenhum filme encontrado.',
   paginationDiv: paginationDiv,
