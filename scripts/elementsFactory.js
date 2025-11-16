@@ -123,13 +123,13 @@ function createCastCard(actor) {
 
   const img = createImg(getPoster(actor.profile_path))
   img.classList.add('movie-img')
-  img.alt = actor.name
+  img.alt = actor.original_name
 
   wrap.appendChild(img)
 
   const name = $('p')
   name.classList.add('actor-name')
-  name.textContent = actor.name
+  name.textContent = actor.original_name
 
   card.append(wrap, name)
   return card
@@ -258,10 +258,10 @@ export function createMediaDetailsPage(media, genres = []) {
   const hr1 = $('hr')
   hr1.classList.add('line')
 
-  // Roteiro
+  // === PRODUTORES ===
   const productorsP = $('p')
   productorsP.innerHTML = `Produtores:
-      <span class="movie-info" id="screenwriters">
+      <span class="movie-info" id="productors">
         ${Array.isArray(directors) ? directors.join(', ') : '---'}
       </span>`
 
@@ -269,6 +269,9 @@ export function createMediaDetailsPage(media, genres = []) {
   hr2.classList.add('line')
 
   // === ELENCO ===
+  const cast = media.credits.cast
+  const actors = cast.filter((e) => e.known_for_department === 'Acting')
+
   const castDiv = $('div')
   castDiv.classList.add('cast-details')
 
@@ -279,8 +282,8 @@ export function createMediaDetailsPage(media, genres = []) {
   const castCards = $('div')
   castCards.classList.add('movie-info-cards')
 
-  if (media.cast && media.cast.length > 0) {
-    media.cast.slice(0, 10).forEach((actor) => {
+  if (actors && actors.length > 0) {
+    actors.slice(0, 10).forEach((actor) => {
       const card = createCastCard(actor)
       castCards.appendChild(card)
     })
