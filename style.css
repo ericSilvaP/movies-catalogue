@@ -44,7 +44,7 @@ main {
 
 /* HEADER */
 .header {
-  width: calc(100% - 3rem);
+  width: 100%;
   height: 4rem;
   display: flex;
   align-items: center;
@@ -314,24 +314,8 @@ main {
   gap: 2rem;
   padding: 2rem;
 }
-/* details */
-/* .details-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 10%;
-  height: 100%;
-  background-color: #1b263b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.3s ease;
-} */
 
-/* .details-overlay.active {
-  display: flex;
-  opacity: 1;
-} */
+/* DETALHES FILMES */
 
 .details-overlay {
   display: flex;
@@ -352,7 +336,7 @@ main {
 }
 
 .details-poster {
-  width: auto;
+  height: auto;
   width: 40%;
   border-radius: 8px 0 0 8px;
   object-fit: cover;
@@ -404,7 +388,7 @@ main {
   gap: 2rem;
 }
 
-.genres-media {
+.genre-container .genres-media {
   align-items: center;
   width: 80%;
   height: 2.5rem;
@@ -466,7 +450,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 30%;
   gap: 0.5rem;
 }
 
@@ -491,21 +475,6 @@ main {
   font-size: 0.9rem;
 }
 
-/* .details-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.details-close-btn:hover {
-  color: #f7a900;
-} */
 /* MEDIA QUERY */
 @media (min-width: 768px) {
   .header {
@@ -521,38 +490,54 @@ main {
   .menu-burger {
     visibility: hidden;
   }
-  /* details */
-  /* .details-content {
-    max-width: 1200px;
-    padding: 30px;
-  } */
 
-  /* .details-details-container {
-     flex-direction: row;
-    text-align: left;
-    align-items: flex-start;
-    gap: 30px; 
-  } */
-
-  .details-poster {
-    width: 300px;
-    min-width: 300px;
+  /* DETALHES FILMES */
+  .details-content {
+    width: 70%;
   }
 
   .details-info {
-    padding: 0;
+    padding: 3rem;
   }
 
-  #details-title {
-    font-size: 36px;
-    margin-top: 0;
+  .details-synopsis {
+    font-size: 1.5rem;
   }
 
-  .details-close-btn {
-    font-size: 30px;
+  .genre-container {
+    width: 70%;
   }
 
-  #details-genres {
-    justify-content: flex-start;
+  .genre-container .genres-media {
+    height: 3rem;
+  }
+
+  .genre-details {
+    font-size: 1.8rem;
+  }
+
+  .movie-info-container {
+    width: 90%;
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .movie-info-container .line {
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  .movie-info-container p {
+    font-size: 1.8rem;
+  }
+
+  .title-details-items {
+    font-size: 2.2em;
+  }
+
+  .card-movie-info {
+    width: 30%;
   }
 }
