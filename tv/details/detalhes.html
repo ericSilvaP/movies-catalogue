@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>CatMovie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nobile:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container-logo container-logo">
+        <img
+          class="header-img-logo"
+          src="/assets/images/logo-first.png"
+          alt="logo CatMovies"
+        />
+        <p>Cat Movies</p>
+      </div>
+      <i class="menu-burger fa-solid fa-bars"></i>
+      <div class="options">
+        <p><a href="#">Início</a></p>
+        <p><a href="/filmes/filmes.html">Filmes</a></p>
+        <p><a href="/tv/tv.html">Séries</a></p>
+      </div>
+    </header>
+
+    <main>
+      <div class="search-bar">
+        <form class="search-bar-form">
+          <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <input type="search" name="query" required />
+        </form>
+        <div class="filter-container">
+          <i class="fa-solid fa-filter"></i>
+        </div>
+      </div>
+      <!-- <div id="loading" class="loading hidden"></div> -->
+
+      <div id="media-details" class="details-overlay">
+        <div class="details-content">
+          <img
+            id="details-poster"
+            class="details-poster"
+            src="/assets/images/img-movie.jpg"
+            alt="Poster do filme/série"
+          />
+
+          <div class="details-details-container">
+            <div class="details-info">
+              <h2 id="details-title">Hereditário</h2>
+
+              <div class="time-info">
+                <p class="details-date" id="details-date">12/12/2020</p>
+                <p class="details-duration" id="details-duration">
+                  <span>1</span>m
+                </p>
+              </div>
+
+              <p class="details-rating">
+                <i class="fa-solid fa-star"></i>
+                <span id="details-rating-number">7.7</span>/10
+              </p>
+
+              <h3 class="details-synopsis">
+                Quando sua mãe - que sofria de distúrbios mentais - falece,
+                Annie (Toni Collette), seu marido (Gabriel Byrne), filho (Alex
+                Wolff) e filha (Milly Shapiro) lamentam sua perda. Todavia, após
+                a morte da reclusa avó, a família Graham começa a desvendar
+                algumas coisas. A família recorre a diferentes meios para lidar
+                com sua dor, incluindo Annie e sua filha flertando com o
+                sobrenatural. Mesmo após a partida da matriarca, ela permanece
+                como se fosse um sombra sobre a família, especialmente sobre a
+                solitária neta adolescente, Charlie, por quem ela sempre manteve
+                uma fascinação não usual. Com um crescente terror tomando conta
+                da casa, a família explora lugares mais obscuros para escapar do
+                infeliz destino que herdaram. Cada um deles começa a ter
+                experiências perturbadoras e sobrenaturais ligadas aos segredos
+                sinistros e traumas emocionais que passaram pelas gerações de
+                sua família.
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="genre-container">
+          <div id="details-genres" class="genres-media">
+            <p class="genre-details">Terror</p>
+          </div>
+          <div id="details-genres" class="genres-media">
+            <p class="genre-details">Drama</p>
+          </div>
+          <div id="details-genres" class="genres-media">
+            <p class="genre-details">Suspence</p>
+          </div>
+        </div>
+
+        <section class="movie-info-container">
+          <p>
+            Direção:
+            <span class="movie-info" id="film-direction">Fulano da Silva</span>
+          </p>
+
+          <hr class="line" />
+          <p>
+            Roteiristas:
+            <span class="movie-info" id="screenwriters">Fulano dos Santos</span>
+          </p>
+
+          <hr class="line" />
+
+          <div class="seasons-info">
+            <h2 class="title-details-items">Temporadas</h2>
+            <ul class="seasons-numbers">
+              <li><p class="number-season-select number-season">1</p></li>
+              <li><p class="number-season">2</p></li>
+              <li><p class="number-season">3</p></li>
+              <li><p class="number-season">4</p></li>
+            </ul>
+
+            <div class="episodes-list">
+              <div class="episodes-card">
+                <div class="ep-img-wrap">
+                  <img
+                    class="img-ep"
+                    id="actor-img"
+                    src="/assets/images/img-movie.jpg"
+                    alt="imagem da obra"
+                  />
+                </div>
+
+                <div class="info-ep">
+                  <h3 class="title-ep">
+                    T<span id="num-season">1</span>.E<span id="num-ep">1</span
+                    >Chapter One: The Vanishing of Will Byers
+                  </h3>
+                  <p class="duration-ep">
+                    <span class="duration-number">43</span>min
+                  </p>
+                  <p class="synopsis-ep">
+                    A caminho de casa, vindo da casa de um amigo, o jovem Will
+                    vê algo assustador. Perto dali, um segredo sinistro se
+                    esconde nas profundezas de um laboratório do governo.
+                  </p>
+                </div>
+              </div>
+
+              <div class="episodes-card">
+                <div class="ep-img-wrap">
+                  <img
+                    class="img-ep"
+                    id="actor-img"
+                    src="/assets/images/img-movie.jpg"
+                    alt="imagem da obra"
+                  />
+                </div>
+
+                <div class="info-ep">
+                  <h3 class="title-ep">
+                    T<span id="num-season">1</span>.E<span id="num-ep">1</span
+                    >Chapter One: The Vanishing of Will Byers
+                  </h3>
+                  <p class="duration-ep">
+                    <span class="duration-number">43</span>min
+                  </p>
+                  <p class="synopsis-ep">
+                    A caminho de casa, vindo da casa de um amigo, o jovem Will
+                    vê algo assustador. Perto dali, um segredo sinistro se
+                    esconde nas profundezas de um laboratório do governo.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cast-details">
+            <h2 class="title-details-items">Elenco</h2>
+            <div class="movie-info-cards">
+              <div class="card-movie-info">
+                <div class="movie-img-wrap">
+                  <img
+                    class="movie-img"
+                    id="actor-img"
+                    src="/assets/images/img-movie.jpg"
+                    alt="participante do elenco"
+                  />
+                </div>
+                <p class="actor-name" id="actor-name">Ciclano</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="images-details">
+            <h2 class="title-details-items">Imagens</h2>
+            <div class="movie-info-cards">
+              <div class="card-movie-info">
+                <div class="movie-img-wrap">
+                  <img
+                    class="movie-img"
+                    id="actor-img"
+                    src="/assets/images/img-movie.jpg"
+                    alt="imagem da obra"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <h2 class="title-details-items">Recomendados</h2>
+        </section>
+        <section class="media-cards"></section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <hr class="line" />
+      <div class="footer-content">
+        <div class="container-logo">
+          <img
+            class="img-logo"
+            src="/assets/images/logo-first.png"
+            alt="logo CatMovies"
+          />
+          <p>Cat Movies</p>
+        </div>
+        <p>
+          Universide Estadual do Piauí © 2025 - Desenvolvido por: Kauã, Wilk,
+          Eric, Enzo
+        </p>
+      </div>
+    </footer>
+    <script type="module" src="../../scripts/movieDetails.js"></script>
+  </body>
+</html>
