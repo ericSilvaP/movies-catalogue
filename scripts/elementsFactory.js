@@ -1,3 +1,6 @@
+import { API_READ_KEY } from './constants.js'
+import { createPagination } from './pagination.js'
+import { TMDb } from './tmdb.js'
 import { formatTime } from './utils.js'
 
 function createImg(src) {
@@ -20,6 +23,42 @@ function resolveGenres(media, genres) {
   return media.genres
     ? media.genres
     : genres.filter((g) => media.genre_ids?.includes(g.id))
+}
+
+function createEpisodeCard(episode) {
+  const card = $('div')
+  card.classList.add('episodes-card')
+
+  const epImgDiv = $('div')
+  epImgDiv.classList.add('ep-img-wrap')
+
+  const epImg = $('img')
+  epImg.classList.add('img-ep')
+  epImg.src = getPoster(episode.still_path)
+  epImg.alt = 'imagem da temporada'
+
+  epImgDiv.appendChild(epImg)
+
+  const epInfoDiv = $('div')
+  epInfoDiv.classList.add('info-ep')
+
+  const epTitle = $('h3')
+  epTitle.classList.add('title-ep')
+  epTitle.innerHTML = `T<span id="num-season">${episode.season_number}</span>.E<span id="num-ep">${episode.episode_number}</span> - ${episode.name}`
+
+  const durationP = $('p')
+  durationP.classList.add('duration-ep')
+  durationP.innerHTML = `<span class="duration-number">${formatTime(
+    episode.runtime
+  )}</span>`
+
+  const synopsisP = $('p')
+  synopsisP.classList.add('synopsis-ep')
+  synopsisP.textContent = episode.overview || 'Sinopse não disponível'
+
+  epInfoDiv.append(epTitle, durationP, synopsisP)
+  card.append(epImgDiv, epInfoDiv)
+  return card
 }
 
 function createMediaCard(
@@ -193,7 +232,10 @@ export function createMediaDetailsPage(media, genres = []) {
   const durationP = $('p')
   durationP.classList.add('details-duration')
   durationP.id = 'details-duration'
-  durationP.innerHTML = `<span>${formatTime(media.runtime) || '--'}</span>`
+  const formatedTime = formatTime(media.runtime)
+  durationP.innerHTML = `<span>${
+    formatedTime.includes('NaN') ? '' : formatedTime
+  }</span>`
 
   timeInfo.append(dateP, durationP)
 
@@ -219,7 +261,7 @@ export function createMediaDetailsPage(media, genres = []) {
 
   majorContainer.appendChild(content)
 
-  // ====================== GÊNEROS =======================
+  // === GÊNEROS ===
   const genreContainer = $('div')
   genreContainer.classList.add('genre-container')
 
@@ -252,13 +294,44 @@ export function createMediaDetailsPage(media, genres = []) {
     .filter((e) => e.known_for_department === 'Production')
     .map((e) => e.name)
 
+  // === TEMPORADAS (para séries) ===
+  const seasonsDiv = $('div')
+  seasonsDiv.classList.add('seasons-info')
+  if (media.name) {
+    async function fetchSeason(seasonNumber, tv = media) {
+      const tmdb = new TMDb(API_READ_KEY)
+      const season = await tmdb.getTVSeason(tv.id, seasonNumber)
+      return { ...season, seasons_number: tv.seasons.length }
+    }
+
+    const seasonsTitle = $('h2')
+    seasonsTitle.classList.add('title-details-items')
+
+    const seasonsPagination = $('ul')
+    seasonsPagination.classList.add('pagination')
+
+    const epsCardsContentDiv = $('div')
+    epsCardsContentDiv.classList.add('episodes-list')
+
+    seasonsDiv.append(seasonsTitle, seasonsPagination, epsCardsContentDiv)
+
+    const pagination = createPagination({
+      paginationDiv: seasonsPagination,
+      grid: epsCardsContentDiv,
+      fetchPage: fetchSeason,
+      cardCreator: createEpisodeCard,
+      genres: [],
+    })
+    pagination.load(1)
+  }
+
   // === PRODUTORES ===
   const productorsP = $('p')
   productorsP.innerHTML = `Produtores:
       <span class="movie-info" id="film-direction">
         ${
-          Array.isArray(directors) && directors.length > 0
-            ? directors.join(', ')
+          Array.isArray(productors) && productors.length > 0
+            ? productors.join(', ')
             : '---'
         }
       </span>`
@@ -270,8 +343,8 @@ export function createMediaDetailsPage(media, genres = []) {
   dirP.innerHTML = `Direção:
   <span class="movie-info" id="productors">
   ${
-    Array.isArray(productors) && productors.length > 0
-      ? productors.join(', ')
+    Array.isArray(directors) && directors.length > 0
+      ? directors.join(', ')
       : '---'
   }
   </span>`
@@ -328,20 +401,33 @@ export function createMediaDetailsPage(media, genres = []) {
   recTitle.classList.add('title-details-items')
   recTitle.textContent = 'Recomendados'
 
-  infoSection.append(dirP, hr1, productorsP, hr2, castDiv, imagesDiv, recTitle)
+  infoSection.append(
+    dirP,
+    hr1,
+    productorsP,
+    hr2,
+    seasonsDiv,
+    castDiv,
+    imagesDiv,
+    recTitle
+  )
 
   majorContainer.appendChild(infoSection)
 
-  // última seção de cards recomendados
+  // cards recomendados
   const recommend = media.recommendations
   const recCards = $('section')
   recCards.classList.add('media-cards')
   if (recommend.results.length > 0) {
-    recommend.results
-      .slice(0, 4)
-      .forEach((e) => recCards.appendChild(createMovieCard(e)))
+    recommend.results.slice(0, 4).forEach((e) => {
+      recCards.appendChild(
+        media.title
+          ? createMovieCard(e, { genres: genres })
+          : createTVCard(e, { genres: genres })
+      )
+    })
   } else {
-    recCards.textContent = 'Sem filmes recomendados.'
+    recCards.textContent = 'Sem recomendados.'
   }
 
   majorContainer.appendChild(recCards)
