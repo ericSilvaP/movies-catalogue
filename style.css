@@ -44,7 +44,7 @@ main {
 
 /* HEADER */
 .header {
-  width: calc(100% - 3rem);
+  width: 100%;
   height: 4rem;
   display: flex;
   align-items: center;
@@ -314,129 +314,165 @@ main {
   gap: 2rem;
   padding: 2rem;
 }
-/* MODAL */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #1b263b;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
 
-.modal-overlay.active {
-  display: flex;
-  opacity: 1;
-}
+/* DETALHES FILMES */
 
-.modal-content {
-  background-color: #1b263b;
-  color: #f7a900;
-  width: 95%;
-  max-height: 90vh;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  overflow-y: auto;
-  position: relative;
-  font-family: 'Nunito', sans-serif;
-}
-
-.modal-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.modal-close-btn:hover {
-  color: #f7a900;
-}
-
-.modal-details-container {
+.details-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  text-align: center;
 }
 
-.modal-poster {
-  width: 80%;
-  max-width: 300px;
+.details-content {
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  background-color: var(--third-color);
+  margin: 2rem;
   border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.details-poster {
+  height: auto;
+  width: 40%;
+  border-radius: 8px 0 0 8px;
   object-fit: cover;
   filter: contrast(1.1);
 }
 
-.modal-info {
+.details-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
   width: 100%;
-  padding: 0 5px;
+  padding: 1rem;
   text-align: left;
 }
 
-#modal-title {
+#details-title {
+  color: var(--fourth-color);
   font-family: 'Nobile', sans-serif;
-  font-size: 28px;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  font-size: 2.5rem;
 }
 
-.modal-rating {
-  font-size: 18px;
-  color: #f7a900;
-}
-
-.modal-date {
-  font-size: 14px;
-  color: #aaa;
-  margin-bottom: 15px;
-}
-
-.modal-subtitle {
-  font-family: 'Nobile', sans-serif;
-  font-size: 20px;
-  color: #ffffff;
-  margin-top: 20px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #333;
-  padding-bottom: 5px;
-}
-
-#modal-overview {
-  line-height: 1.5;
-  color: #ccc;
-  margin-bottom: 15px;
-}
-
-#modal-genres {
+.time-info {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  color: white;
 }
 
-.modal-content .genre {
-  padding: 4px 12px;
-  border: 1px solid #f7a900;
-  border-radius: 15px;
+.time-info p {
+  font-size: 1.2rem;
 }
 
-.modal-content .genre p {
+.details-rating {
+  font-size: 1.5rem;
+  color: var(--fourth-color);
+}
+
+.details-synopsis {
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: lighter;
+  color: #ffffff;
+  text-align: justify;
+}
+
+.genre-container {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.genre-container .genres-media {
+  align-items: center;
+  width: 80%;
+  height: 2.5rem;
+  border: 1px solid var(--fourth-color);
+  border-radius: 2px;
+}
+
+.genre-details {
+  font-size: 1.2rem;
+  padding: 0;
+  font-family: var(--base-font);
+  color: var(--fourth-color);
+}
+
+.title-details-items {
+  color: var(--fourth-color);
+  font-family: var(--second-font);
+  font-size: 1.3rem;
+}
+
+.movie-info-container {
+  width: 90%;
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.movie-info-container .line {
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.movie-info-container p {
+  font-family: var(--base-font);
+  color: white;
+  font-size: 1.2rem;
+}
+
+.movie-info-container .movie-info {
+  color: var(--fourth-color);
+}
+
+.title-details-items {
+  color: var(--fourth-color);
+  font-family: var(--second-font);
+  font-size: 1.3rem;
+}
+
+.movie-info-cards {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  gap: 1rem;
+}
+
+.card-movie-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  gap: 0.5rem;
+}
+
+.movie-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.movie-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.actor-name {
   margin: 0;
-  font-size: 13px;
-  color: #f7a900;
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
 }
 
 /* PAGINATION */
@@ -500,38 +536,54 @@ main {
   .menu-burger {
     visibility: hidden;
   }
-  /* MODAL */
-  .modal-content {
-    max-width: 1200px;
-    padding: 30px;
+
+  /* DETALHES FILMES */
+  .details-content {
+    width: 70%;
   }
 
-  .modal-details-container {
-    flex-direction: row;
-    text-align: left;
-    align-items: flex-start;
-    gap: 30px;
+  .details-info {
+    padding: 3rem;
   }
 
-  .modal-poster {
-    width: 300px;
-    min-width: 300px;
+  .details-synopsis {
+    font-size: 1.5rem;
   }
 
-  .modal-info {
-    padding: 0;
+  .genre-container {
+    width: 70%;
   }
 
-  #modal-title {
-    font-size: 36px;
-    margin-top: 0;
+  .genre-container .genres-media {
+    height: 3rem;
   }
 
-  .modal-close-btn {
-    font-size: 30px;
+  .genre-details {
+    font-size: 1.8rem;
   }
 
-  #modal-genres {
-    justify-content: flex-start;
+  .movie-info-container {
+    width: 90%;
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .movie-info-container .line {
+    margin: 1rem 0;
+    width: 100%;
+  }
+
+  .movie-info-container p {
+    font-size: 1.8rem;
+  }
+
+  .title-details-items {
+    font-size: 2.2em;
+  }
+
+  .card-movie-info {
+    width: 30%;
   }
 }

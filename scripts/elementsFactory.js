@@ -27,10 +27,10 @@ function createMediaCard(
   // === CARD ===
   const card = $('div')
   card.classList.add('card-media')
-  // === MODAL ===
+  // === details ===
   card.addEventListener('click', () => {
-    openMediaModal(media, genres)
-    console.log('Card clicado:', media.title || media.name);
+    openMediaDetails(media, genres)
+    console.log('Card clicado:', media.title || media.name)
   })
 
   // === POSTER ===
@@ -113,58 +113,60 @@ export function createTVCard(tv, options = {}) {
     ...options,
   })
 }
-// === ABRIR MODAL ===
-export function openMediaModal(media, allGenres = []) {
-    const modal = document.getElementById('media-modal');
-    if (!modal) {
-        console.error('Elemento modal com ID "media-modal" não encontrado.');
-        return;
-    }
+// === ABRIR details ===
+// export function openMediaDetails(media, allGenres = []) {
+//   const details = document.getElementById('media-details')
+//   if (!details) {
+//     console.error('Elemento details com ID "media-details" não encontrado.')
+//     return
+//   }
 
-    document.getElementById('modal-poster').src = getPoster(media.poster_path);
-    document.getElementById('modal-title').textContent = media.title || media.name || 'Título Indisponível';
-    
-    const rating = media.vote_average ? media.vote_average.toFixed(1) : '---';
-    document.getElementById('modal-rating-number').textContent = rating;
-    
-    const date = media.release_date || media.first_air_date || 'Data Indisponível';
-    document.getElementById('modal-date').textContent = date;
-    
-    document.getElementById('modal-overview').textContent = media.overview || 'Sinopse não disponível.';
+//   document.getElementById('details-poster').src = getPoster(media.poster_path)
+//   document.getElementById('details-title').textContent =
+//     media.title || media.name || 'Título Indisponível'
 
-    const genresDiv = document.getElementById('modal-genres');
-    genresDiv.innerHTML = '';
+//   const rating = media.vote_average ? media.vote_average.toFixed(1) : '---'
+//   document.getElementById('details-rating-number').textContent = rating
 
-    const resolvedGenres = resolveGenres(media, allGenres);
+//   const date = media.release_date || media.first_air_date || 'Data Indisponível'
+//   document.getElementById('details-date').textContent = date
 
-    resolvedGenres.forEach((g) => {
-        const div = $('div'); 
-        div.classList.add('genre');
-        const p = $('p');
-        p.textContent = g.name;
+//   document.getElementById('details-overview').textContent =
+//     media.overview || 'Sinopse não disponível.'
 
-        div.appendChild(p);
-        genresDiv.appendChild(div);
-    });
+//   const genresDiv = document.getElementById('details-genres')
+//   genresDiv.innerHTML = ''
 
-    modal.classList.add('active');
-}
-// === FECHAR MODAL ===
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('media-modal');
-    const closeBtn = document.getElementById('modal-close-btn');
+//   const resolvedGenres = resolveGenres(media, allGenres)
 
-    if (modal) {
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => {
-                modal.classList.remove('active');
-            });
-        }
+//   resolvedGenres.forEach((g) => {
+//     const div = $('div')
+//     div.classList.add('genre')
+//     const p = $('p')
+//     p.textContent = g.name
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-    }
-});
+//     div.appendChild(p)
+//     genresDiv.appendChild(div)
+//   })
+
+//   details.classList.add('active')
+// }
+// // === FECHAR details ===
+// document.addEventListener('DOMContentLoaded', () => {
+//   const details = document.getElementById('media-details')
+//   const closeBtn = document.getElementById('details-close-btn')
+
+//   if (details) {
+//     if (closeBtn) {
+//       closeBtn.addEventListener('click', () => {
+//         details.classList.remove('active')
+//       })
+//     }
+
+//     details.addEventListener('click', (e) => {
+//       if (e.target === details) {
+//         details.classList.remove('active')
+//       }
+//     })
+//   }
+// })
