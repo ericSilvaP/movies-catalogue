@@ -332,16 +332,20 @@ export function createMediaDetailsPage(media, genres = []) {
 
   majorContainer.appendChild(infoSection)
 
-  // última seção de cards recomendados
+  // cards recomendados
   const recommend = media.recommendations
   const recCards = $('section')
   recCards.classList.add('media-cards')
   if (recommend.results.length > 0) {
-    recommend.results
-      .slice(0, 4)
-      .forEach((e) => recCards.appendChild(createMovieCard(e)))
+    recommend.results.slice(0, 4).forEach((e) => {
+      recCards.appendChild(
+        media.title
+          ? createMovieCard(e, { genres: genres })
+          : createTVCard(e, { genres: genres })
+      )
+    })
   } else {
-    recCards.textContent = 'Sem filmes recomendados.'
+    recCards.textContent = 'Sem recomendados.'
   }
 
   majorContainer.appendChild(recCards)
