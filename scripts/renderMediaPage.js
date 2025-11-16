@@ -1,3 +1,4 @@
+import { showLoading } from './loading.js'
 import { createPagination } from '/scripts/pagination.js'
 
 export async function renderMediaPage({
@@ -5,7 +6,7 @@ export async function renderMediaPage({
   cardCreator,
   discoverFunction,
   discoverOptions,
-  genresFunction,
+  genresList,
   emptyMessage,
   grid,
   paginationDiv,
@@ -15,8 +16,7 @@ export async function renderMediaPage({
   const title = document.querySelector('.title-section')
   let searchParam = params.get('query')
 
-  const genresData = await genresFunction()
-  const genres = genresData.genres
+  showLoading()
 
   async function fetchPage(page = 1) {
     if (!searchParam) {
@@ -27,7 +27,7 @@ export async function renderMediaPage({
 
     if (searchParam === '') {
       grid.textContent =
-        'Pesquise no CatMovie uma palavra ou frase na caixa acima'
+        'Pesquise no CatMovies uma palavra ou frase na caixa acima'
       return { results: [], total_pages: 1 }
     }
 
@@ -38,7 +38,6 @@ export async function renderMediaPage({
     else if (type === 'tv') data = await tmdb.searchTV(searchParam, page)
     else data = await tmdb.searchMulti(searchParam, page)
 
-    // multi → filtrar
     if (type === 'multi') {
       data.results = data.results.filter(
         (i) => i.media_type === 'movie' || i.media_type === 'tv'
@@ -57,8 +56,7 @@ export async function renderMediaPage({
     grid,
     fetchPage,
     cardCreator,
-    genres,
+    genres: genresList,
   })
-
   pagination.load(1)
 }

@@ -475,6 +475,52 @@ main {
   font-size: 0.9rem;
 }
 
+/* PAGINATION */
+.pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.pagination button {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pagination button:hover {
+  background: #ddd;
+}
+.pagination button.active,
+.pagination button[aria-current='page'] {
+  background: #444;
+  color: #fff;
+  border-color: #333;
+}
+
+/* LOADING */
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 20px auto;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* MEDIA QUERY */
 @media (min-width: 768px) {
   .header {

@@ -1,3 +1,5 @@
+import { hideLoading, showLoading } from './loading.js'
+
 export function createPagination({
   paginationDiv,
   grid,
@@ -15,8 +17,10 @@ export function createPagination({
   }
 
   function renderItems(list) {
-    grid.innerHTML = ''
+    grid.innerHTML = '<div id="loading" class="loading hidden"></div>'
+    showLoading()
     list.forEach((item) => grid.appendChild(cardCreator(item, { genres })))
+    hideLoading()
   }
 
   function renderPaginationControls(totalPages, currentPage) {
