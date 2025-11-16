@@ -476,11 +476,6 @@ main {
 }
 
 /* EPISODES-INFO */
-.img-ep {
-  width: 3rem;
-  height: auto;
-}
-
 .seasons-info {
   display: flex;
   flex-direction: column;
@@ -493,10 +488,83 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 
-.seasons-numbers-select {
+.seasons-numbers li {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: transparent;
+  font-family: var(--base-font);
+  cursor: pointer;
+}
+
+.seasons-numbers li:hover {
+  background-color: var(--fourth-color);
+  transition: 0.2s;
+}
+
+.seasons-numbers .number-season:hover {
+  color: var(--first-color);
+}
+
+.seasons-numbers .number-season-select {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--fourth-color);
+  color: var(--first-color);
+  font-family: var(--base-font);
+}
+
+.episodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.episodes-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  color: white;
+  font-family: var(--base-font);
+}
+
+.img-ep {
+  width: 16rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.info-ep {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  gap: 0.4rem;
+}
+
+.info-ep p {
+  font-size: 0.8rem;
+}
+
+.info-ep .title-ep {
+  color: var(--fourth-color);
+  font-size: 1.2rem;
 }
 
 /* PAGINATION */
@@ -609,5 +677,21 @@ main {
 
   .card-movie-info {
     width: 30%;
+  }
+
+  /* EPISODES-INFO */
+
+  .img-ep {
+    width: 32rem;
+    height: 20rem;
+  }
+
+  .info-ep p {
+    font-size: 1.5rem;
+  }
+
+  .info-ep .title-ep {
+    color: var(--fourth-color);
+    font-size: 2rem;
   }
 }
