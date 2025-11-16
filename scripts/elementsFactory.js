@@ -241,20 +241,28 @@ export function createMediaDetailsPage(media, genres = []) {
   infoSection.classList.add('movie-info-container')
 
   // Direção
+  const crew = media.credits.crew
+  const directors = crew
+    .filter((e) => e.known_for_department === 'Directing')
+    .map((e) => e.name)
+  const productors = crew
+    .filter((e) => e.known_for_department === 'Production')
+    .map((e) => e.name)
+
   const dirP = $('p')
   dirP.innerHTML = `Direção:
-      <span class="movie-info" id="film-direction">
-        ${media.director || '---'}
-      </span>`
+  <span class="movie-info" id="film-direction">
+  ${Array.isArray(productors) ? productors.join(', ') : '---'}
+  </span>`
 
   const hr1 = $('hr')
   hr1.classList.add('line')
 
   // Roteiro
-  const roteiristasP = $('p')
-  roteiristasP.innerHTML = `Roteiristas:
+  const productorsP = $('p')
+  productorsP.innerHTML = `Produtores:
       <span class="movie-info" id="screenwriters">
-        ${Array.isArray(media.writers) ? media.writers.join(', ') : '---'}
+        ${Array.isArray(directors) ? directors.join(', ') : '---'}
       </span>`
 
   const hr2 = $('hr')
@@ -303,7 +311,7 @@ export function createMediaDetailsPage(media, genres = []) {
   recTitle.classList.add('title-details-items')
   recTitle.textContent = 'Recomendados'
 
-  infoSection.append(dirP, hr1, roteiristasP, hr2, castDiv, imagesDiv, recTitle)
+  infoSection.append(dirP, hr1, productorsP, hr2, castDiv, imagesDiv, recTitle)
 
   majorContainer.appendChild(infoSection)
 
