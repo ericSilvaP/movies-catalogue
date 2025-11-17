@@ -752,6 +752,65 @@ main {
   display: none;
 }
 
+/* PESSOA-DETALHES */
+.people-details {
+  padding: 1rem 0;
+  font-family: var(--base-font);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title-people {
+  font-size: 2rem;
+  color: var(--fourth-color);
+}
+
+.biography {
+  color: white;
+  font-size: 1.8rem;
+  text-align: left;
+}
+
+.list-images-people {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.list-images-people img {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
+.img-people {
+  width: 20rem;
+  height: 30rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
+.imgs-participation {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.imgs-participation img {
+  width: 16rem;
+  height: 16rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
