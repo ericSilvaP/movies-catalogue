@@ -88,9 +88,6 @@ export function createPeopleDetails(person) {
     ...(person.tv_credits?.cast || []),
   ]
 
-  console.log(person)
-  console.log(knownFor)
-
   // Ordenar por popularidade
   knownFor.slice(0, 8).forEach((item) => {
     if (item.title) {
@@ -104,14 +101,16 @@ export function createPeopleDetails(person) {
   participationDiv.appendChild(participations)
 
   // === MONTAR A SECTION ===
-  section.appendChild(nameEl)
-  section.appendChild(professionEl)
-  section.appendChild(boxImage)
-  section.appendChild(bio)
-  section.appendChild(imagesTitle)
-  section.appendChild(imagesList)
-  section.appendChild(knownForTitle)
-  section.appendChild(participationDiv)
+  section.append(
+    nameEl,
+    professionEl,
+    boxImage,
+    bio,
+    imagesTitle,
+    imagesList,
+    knownForTitle,
+    participationDiv
+  )
 
   return section
 }
