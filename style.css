@@ -572,6 +572,16 @@ main {
   color: var(--fourth-color);
 }
 
+.movie-info-container a {
+  text-decoration: none;
+  color: var(--fourth-color);
+}
+
+.movie-info-container a:hover {
+  color: white;
+  transition: all 300ms;
+}
+
 .title-details-items {
   color: var(--fourth-color);
   font-family: var(--second-font);
