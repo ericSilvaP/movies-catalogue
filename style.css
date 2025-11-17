@@ -356,7 +356,8 @@ main {
   padding-bottom: 0.8rem;
 }
 
-.card-media:hover {
+.card-media:hover,
+.card-movie-info:hover {
   transform: scale(1.04);
   transition: 0.4s;
 }
@@ -571,6 +572,16 @@ main {
   color: var(--fourth-color);
 }
 
+.movie-info-container a {
+  text-decoration: none;
+  color: var(--fourth-color);
+}
+
+.movie-info-container a:hover {
+  color: white;
+  transition: all 300ms;
+}
+
 .title-details-items {
   color: var(--fourth-color);
   font-family: var(--second-font);
@@ -595,6 +606,7 @@ main {
   width: 30%;
   gap: 0.5rem;
   max-width: 12rem;
+  cursor: pointer;
 }
 
 .movie-img-wrap {
@@ -750,6 +762,65 @@ main {
 
 .hidden {
   display: none;
+}
+
+/* PESSOA-DETALHES */
+.people-details {
+  padding: 1rem 0;
+  font-family: var(--base-font);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title-people {
+  font-size: 2rem;
+  color: var(--fourth-color);
+}
+
+.biography {
+  color: white;
+  font-size: 1.8rem;
+  text-align: left;
+}
+
+.list-images-people {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.list-images-people img {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
+.img-people {
+  width: 20rem;
+  height: 30rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
+}
+
+.imgs-participation {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.imgs-participation img {
+  width: 16rem;
+  height: 16rem;
+  object-fit: cover;
+  border-radius: 2px;
+  border-radius: 4px;
 }
 
 @keyframes spin {

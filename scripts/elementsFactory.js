@@ -4,7 +4,7 @@ import { TMDb } from './tmdb.js'
 import { formatTime } from './utils.js'
 
 function createImg(src) {
-  const img = document.createElement('img')
+  const img = $('img')
   img.src = src
   return img
 }
@@ -23,6 +23,96 @@ function resolveGenres(media, genres) {
   return media.genres
     ? media.genres
     : genres.filter((g) => media.genre_ids?.includes(g.id))
+}
+
+export function createPeopleDetails(person) {
+  const section = $('section')
+  section.classList.add('people-details')
+
+  // === NOME ===
+  const nameEl = $('h1')
+  nameEl.classList.add('title-people', 'people-name')
+  nameEl.textContent = person.name
+
+  // === PROFISSÃO ===
+  const professionEl = $('p')
+  professionEl.classList.add('profession')
+  professionEl.textContent = person.known_for_department || ''
+
+  // === IMAGEM PRINCIPAL ===
+  const boxImage = $('div')
+  boxImage.classList.add('box-image-people')
+
+  const mainImg = $('img')
+  mainImg.classList.add('img-people')
+  mainImg.src = getPoster(person.profile_path)
+  mainImg.alt = `Foto de ${person.name}`
+  boxImage.appendChild(mainImg)
+
+  // === BIOGRAFIA ===
+  const bio = $('p')
+  bio.classList.add('biography')
+  bio.textContent = person.biography || 'Biografia não disponível.'
+
+  // === IMAGENS ===
+  const imagesTitle = $('h2')
+  imagesTitle.classList.add('title-people')
+  imagesTitle.textContent = 'Imagens'
+
+  const imagesList = $('div')
+  imagesList.classList.add('list-images-people')
+
+  const images = person.images?.profiles || []
+
+  images.forEach((img) => {
+    const image = $('img')
+    image.src = getPoster(img.file_path)
+    image.alt = `Imagem de ${person.name}`
+    imagesList.appendChild(image)
+  })
+
+  // === CONHECIDO POR ===
+  const knownForTitle = $('h2')
+  knownForTitle.classList.add('title-people')
+  knownForTitle.textContent = 'Conhecido por'
+
+  const participationDiv = $('div')
+  participationDiv.classList.add('movie-participation')
+
+  const participations = $('div')
+  participations.classList.add('imgs-participation')
+
+  // Juntando filmes + séries
+  const knownFor = [
+    ...(person.movie_credits?.cast || []),
+    ...(person.tv_credits?.cast || []),
+  ]
+
+  // Ordenar por popularidade
+  knownFor.slice(0, 8).forEach((item) => {
+    if (item.title) {
+      item = createMovieCard(item)
+    } else {
+      item = createTVCard(item)
+    }
+    participations.appendChild(item)
+  })
+
+  participationDiv.appendChild(participations)
+
+  // === MONTAR A SECTION ===
+  section.append(
+    nameEl,
+    professionEl,
+    boxImage,
+    bio,
+    imagesTitle,
+    imagesList,
+    knownForTitle,
+    participationDiv
+  )
+
+  return section
 }
 
 function createEpisodeCard(episode) {
@@ -285,14 +375,14 @@ export function createMediaDetailsPage(media, genres = []) {
   const infoSection = $('section')
   infoSection.classList.add('movie-info-container')
 
-  // === DIRETORES ===
+  // === ELENCO ===
   const crew = media.credits.crew
   const directors = crew
     .filter((e) => e.known_for_department === 'Directing')
-    .map((e) => e.name)
+    .map((e) => `<a href="/pessoas/details.html?id=${e.id}">${e.name}</a>`)
   const productors = crew
     .filter((e) => e.known_for_department === 'Production')
-    .map((e) => e.name)
+    .map((e) => `<a href="/pessoas/details.html?id=${e.id}">${e.name}</a>`)
 
   // === TEMPORADAS (para séries) ===
   const seasonsDiv = $('div')
@@ -369,6 +459,9 @@ export function createMediaDetailsPage(media, genres = []) {
   if (actors && actors.length > 0) {
     actors.slice(0, 10).forEach((actor) => {
       const card = createCastCard(actor)
+      card.addEventListener('click', () => {
+        window.location.href = `/pessoas/details.html?id=${actor.id}`
+      })
       castCards.appendChild(card)
     })
   }
