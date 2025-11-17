@@ -356,7 +356,8 @@ main {
   padding-bottom: 0.8rem;
 }
 
-.card-media:hover {
+.card-media:hover,
+.card-movie-info:hover {
   transform: scale(1.04);
   transition: 0.4s;
 }
@@ -595,6 +596,7 @@ main {
   width: 30%;
   gap: 0.5rem;
   max-width: 12rem;
+  cursor: pointer;
 }
 
 .movie-img-wrap {

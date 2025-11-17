@@ -459,6 +459,9 @@ export function createMediaDetailsPage(media, genres = []) {
   if (actors && actors.length > 0) {
     actors.slice(0, 10).forEach((actor) => {
       const card = createCastCard(actor)
+      card.addEventListener('click', () => {
+        window.location.href = `/pessoas/details.html?id=${actor.id}`
+      })
       castCards.appendChild(card)
     })
   }
