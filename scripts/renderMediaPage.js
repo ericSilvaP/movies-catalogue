@@ -1,3 +1,4 @@
+import { initGenreFilter } from './genreFilter.js'
 import { showLoading } from './loading.js'
 import { createPagination } from '/scripts/pagination.js'
 
@@ -15,12 +16,17 @@ export async function renderMediaPage({
   const params = new URLSearchParams(window.location.search)
   const title = document.querySelector('.title-section')
   let searchParam = params.get('query')
+  let selectedGenres = []
 
   showLoading()
 
   async function fetchPage(page = 1) {
     if (!searchParam) {
-      return await discoverFunction({ ...discoverOptions, page })
+      const options = { ...discoverOptions, page }
+      if (selectedGenres.length > 0) {
+        options.withGenres = selectedGenres.join(',')
+      }
+      return await discoverFunction(options)
     }
 
     searchParam = searchParam.trim()
@@ -34,9 +40,9 @@ export async function renderMediaPage({
     title.textContent = `Pesquisa por "${searchParam}"`
 
     let data
-    if (type === 'movie') data = await tmdb.searchMovie(searchParam, page)
-    else if (type === 'tv') data = await tmdb.searchTV(searchParam, page)
-    else data = await tmdb.searchMulti(searchParam, page)
+    if (type === 'movie') data = await tmdb.searchMovie(searchParam, { page })
+    else if (type === 'tv') data = await tmdb.searchTV(searchParam, { page })
+    else data = await tmdb.searchMulti(searchParam, { page })
 
     if (type === 'multi') {
       data.results = data.results.filter(
@@ -58,5 +64,18 @@ export async function renderMediaPage({
     cardCreator,
     genres: genresList,
   })
+
+  initGenreFilter({
+    genres: genresList,
+    onFilterApply: (genres) => {
+      selectedGenres = genres
+      pagination.load(1)
+    },
+    onFilterClear: () => {
+      selectedGenres = []
+      pagination.load(1)
+    },
+  })
+
   pagination.load(1)
 }
