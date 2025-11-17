@@ -6,7 +6,6 @@ export function initGenreFilter({ genres, onFilterApply, onFilterClear }) {
   const genresList = document.getElementById('genresList')
 
   let selectedGenreId = null
-  console.log(genres)
 
   function renderGenres() {
     genresList.innerHTML = ''
