@@ -375,14 +375,14 @@ export function createMediaDetailsPage(media, genres = []) {
   const infoSection = $('section')
   infoSection.classList.add('movie-info-container')
 
-  // === DIRETORES ===
+  // === ELENCO ===
   const crew = media.credits.crew
   const directors = crew
     .filter((e) => e.known_for_department === 'Directing')
-    .map((e) => e.name)
+    .map((e) => `<a href="/pessoas/details.html?id=${e.id}">${e.name}</a>`)
   const productors = crew
     .filter((e) => e.known_for_department === 'Production')
-    .map((e) => e.name)
+    .map((e) => `<a href="/pessoas/details.html?id=${e.id}">${e.name}</a>`)
 
   // === TEMPORADAS (para séries) ===
   const seasonsDiv = $('div')
